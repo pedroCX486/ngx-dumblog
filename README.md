@@ -1,4 +1,4 @@
-# ngx-Dumblog
+# NGX-Dumblog
 
 The new version of Dumblog, now fully written in Angular! Still in development, design decisions may chance. Not ready for production use.
 
