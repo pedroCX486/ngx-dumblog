@@ -1,0 +1,25 @@
+name: NGX-Dumblog CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Using Node.JS (Current)
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and build
+      run: |
+        npm install
+        npm run build -- --prod
+      env:
+        CI: true
