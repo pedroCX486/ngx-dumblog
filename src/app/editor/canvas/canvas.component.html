@@ -1,6 +1,33 @@
 <input [(ngModel)]="postTitle" type="text" class="form-control" placeholder="Post title...">
 
-<ckeditor [(ngModel)]="editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+<ckeditor [(ngModel)]="editorData" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
 <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html">Powered by CK Editor</a></div>
 
-<button class="btn btn-outline-secondary" type="button" class="btn btn-info" (click)="save()">Save JSON</button>
+<div class="controls">
+    <button type="button" class="btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
+    <button type="button" class="btn btn-outline-info" (click)="saveAll()">Save</button>
+</div>
+
+<!-- Modal -->
+<div id="selectionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">Select a post to load:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item mouse-hover" *ngFor="let archive of archives" (click)="loadPost(archive.filename)" data-dismiss="modal">{{archive.postTitle}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
