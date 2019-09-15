@@ -1,1 +1,6 @@
-<p>canvas works!</p>
+<input [(ngModel)]="postTitle" type="text" class="form-control" placeholder="Post title...">
+
+<ckeditor [(ngModel)]="editorData" [editor]="Editor" (ready)="onReady($event)"></ckeditor>
+<div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html">Powered by CK Editor</a></div>
+
+<button class="btn btn-outline-secondary" type="button" class="btn btn-info" (click)="save()">Save JSON</button>
