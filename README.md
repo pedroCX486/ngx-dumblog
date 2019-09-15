@@ -1,6 +1,6 @@
 # ngx-Dumblog
 
-The new version of Dumblog, now fully written in Angular! Still in development, design decisions may chance. Not ready for production use.
+The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! Still in development, design decisions may change. Not ready for production use.
 
 ## Development server
 
