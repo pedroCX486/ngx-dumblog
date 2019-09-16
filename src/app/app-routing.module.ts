@@ -10,11 +10,6 @@ const routes: Routes = [
   {
     path: 'editor',
     loadChildren: './editor/editor.module#EditorModule'
-  },
-  {
-    path: '',
-    redirectTo: 'blog',
-    pathMatch: 'full'
   }
 ];
 

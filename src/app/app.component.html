@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" [routerLink]="['/blog']">{{blogTitle}}</a>
+    <a class="navbar-brand" [routerLink]="['/blog']" skipLocationChange>{{blogTitle}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/blog']">Home</a>
+            <a class="nav-link" [routerLink]="['/blog']" skipLocationChange>Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/blog/posts']">Posts</a>
+            <a class="nav-link" [routerLink]="['/blog/posts']" skipLocationChange>Posts</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/editor']">Editor</a>
+            <a class="nav-link" [routerLink]="['/editor']" skipLocationChange>Editor</a>
         </li>
         </ul>
         <ul class="navbar-nav ml-auto">
