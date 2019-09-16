@@ -1,11 +1,14 @@
-<input [(ngModel)]="postTitle" type="text" class="form-control" placeholder="Post title...">
+<div class="margins">
+    <input [(ngModel)]="postTitle" type="text" class="form-control no-border" placeholder="Post title...">
 
-<ckeditor [(ngModel)]="editorData" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
-<div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html">Powered by CK Editor</a></div>
+    <ckeditor [(ngModel)]="postContent" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
+    <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html">Powered by CK Editor</a></div>
 
-<div class="controls">
-    <button type="button" class="btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
-    <button type="button" class="btn btn-outline-info" (click)="saveAll()">Save</button>
+    <div class="controls">
+        <button type="button" class="btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
+        <button type="button" class="btn btn-outline-info" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
+        <button type="button" class="btn btn-outline-info" (click)="reset()">New</button>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -23,6 +26,36 @@
                         <li class="list-group-item mouse-hover" *ngFor="let archive of archives" (click)="loadPost(archive.filename)" data-dismiss="modal">{{archive.postTitle}}</li>
                     </ul>
                 </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="saveModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">About saving...</h4>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="!entryExists">Your browser will ask you if you want to download multiple files, click <strong>Allow</strong>!<br><br>
+                    After the download is done, grab the <strong>archive.json</strong> and the <strong>{{parseFilename()}}.json</strong> and drop them
+                    in the <strong>assets/posts</strong> folder of your Dumblog install.<br><br>
+                    Then you can commit those files to your .github.io repo and Dumblog will reflect then as soon as Github rebuilds the repo!
+                </p>
+                <p *ngIf="entryExists">Based on the title, it seems you created (or edited) a post with the same name of one that already exists!<br>
+                    So no <strong>archive.json</strong> was generated...<br><br>
+                    After the <strong>{{parseFilename()}}.json</strong> is downloaded, and drop the file
+                    in the <strong>assets/posts</strong> folder of your Dumblog install.<br><br>
+                    Then you can commit the file to your .github.io repo and Dumblog will reflect it as soon as Github rebuilds the repo!
+                </p>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>

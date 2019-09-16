@@ -1,5 +1,6 @@
 [
-  { "postTitle": "Hello World", "filename": "hello-world" },
-  { "postTitle": "Za World", "filename": "za-world" },
-  { "postTitle": "Za Warudo", "filename": "za-warudo" }
+  {
+    "postTitle": "Hello World",
+    "filename": "hello-world"
+  }
 ]

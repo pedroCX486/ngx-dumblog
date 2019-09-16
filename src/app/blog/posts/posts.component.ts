@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsComponent implements OnInit {
 
-  constructor() { }
+  archives = [];
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.loadArchive();
+  }
+
+  getJSON(arg): Observable<any> {
+    return this.http.get("./assets/posts/"+ arg +".json");
+  }
+
+  loadArchive(){
+    this.getJSON('archive').subscribe(data => {
+      this.archives = data;
+    });
   }
 
 }

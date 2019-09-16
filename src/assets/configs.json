@@ -1,4 +1,5 @@
 {
     "blogtitle": "My New Blog",
-    "about": "Hello, this is your new blog.<br><br>You can edit the configs.json and use HTML as you wish in the about section. Just remember to escape the html tag attributes!"
+    "about": "Hello, this is your new blog.<br><br>You can edit the configs.json and use HTML as you wish in the about section. Just remember to escape the html tag attributes!",
+    "showposts": 5
 }
