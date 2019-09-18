@@ -9,21 +9,35 @@ import { Observable } from 'rxjs';
 })
 export class PostsComponent implements OnInit {
 
-  archives = [];
+  urlParams = new URLSearchParams(window.location.search);
+
+  postTitle = '...';
+  postContent = '...';
+  timestamp = '';
+  editedTimestamp = '';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.loadArchive();
+    console.log(this.urlParams.get('post'))
+    if(this.urlParams.get('post')){
+      this.loadPost();
+    }
   }
 
   getJSON(arg): Observable<any> {
     return this.http.get("./assets/posts/"+ arg +".json");
   }
 
-  loadArchive(){
-    this.getJSON('archive').subscribe(data => {
-      this.archives = data;
+  loadPost(){
+    this.getJSON(this.urlParams.get('post')).subscribe(data => {
+      this.postContent = data.content;
+      this.postTitle = data.title;
+      this.timestamp = data.timestamp;
+      this.editedTimestamp = data.editedTimestamp;
+    }, error => {
+      this.postTitle = 'Whoops!';
+      this.postContent = 'Post not found!';
     });
   }
 

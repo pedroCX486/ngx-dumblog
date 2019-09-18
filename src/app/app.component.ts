@@ -16,6 +16,8 @@ export class AppComponent {
   blogTitle;
   about;
 
+  urlParams = new URLSearchParams(window.location.search);
+
   constructor(private http: HttpClient, private titleService: Title, private router: Router) {
     this.getJSON().subscribe(data => {
       this.blogTitle = data.blogtitle;
@@ -25,8 +27,26 @@ export class AppComponent {
     });
   }
 
+  navigate(arg){
+    this.router.navigate([arg], { skipLocationChange: true });
+  }
+
   ngOnInit(){
-    this.router.navigate(['/blog'], { skipLocationChange: true });
+    if(this.urlParams.get('post')){
+      this.router.navigate(['/blog/posts'], {queryParams: { post: this.urlParams.get('post')}, skipLocationChange: true });
+    }else{
+      switch (this.urlParams.get('page')){
+        case 'editor':
+          this.router.navigate(['/editor'], { skipLocationChange: true });
+        break;
+        case 'archives':
+          this.router.navigate(['/blog/archives'], { skipLocationChange: true });
+        break;
+        default:
+          this.router.navigate(['/blog'], { skipLocationChange: true });
+        break;
+      }
+    }
   }
 
   getJSON(): Observable<any> {

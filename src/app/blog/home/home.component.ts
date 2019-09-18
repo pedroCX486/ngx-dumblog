@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent implements OnInit {
 
   postTitle = '';
-  postContent = 'A new post...';
+  postContent = '';
   timestamp = '';
   editedTimestamp = '';
 

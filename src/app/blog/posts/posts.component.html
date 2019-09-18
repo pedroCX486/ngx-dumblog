@@ -1,6 +1,7 @@
-Area under construction. For now just looks and feels. Lots of feels. Hmmm.
+<h1>POST VIEW - UNDER CONSTRUCTION</h1>
 <div class="card margins">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item mouse-hover" *ngFor="let archive of archives">{{archive.postTitle}}</li>
-    </ul>
+    <h5 class="card-header">{{postTitle}}</h5>
+    <div class="card-body">
+        <p class="card-text" [innerHTML]="postContent"></p>
+    </div>
 </div>
