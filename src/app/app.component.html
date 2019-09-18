@@ -17,27 +17,10 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link navigation-hover" data-toggle="modal" data-target="#aboutModal">About</a>
+                <a class="nav-link navigation-hover" href="http://github.com/pedroCX486/ngx-dumblog" target="_blank">Powered by ngx-Dumblog</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<!-- Modal -->
-<div id="aboutModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">About</h4>
-            </div>
-            <div class="modal-body" id="about" [innerHTML]="about"></div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-outline-info" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 <router-outlet></router-outlet>

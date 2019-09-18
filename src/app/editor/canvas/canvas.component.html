@@ -2,12 +2,14 @@
     <input [(ngModel)]="postTitle" type="text" class="form-control no-border" placeholder="Post title...">
 
     <ckeditor [(ngModel)]="postContent" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
+    <div class="timestamp text-muted" *ngIf="!!timestamp"><strong>Created on</strong>&nbsp;{{timestamp}}&nbsp;<div *ngIf="!!editedTimestamp"><strong>Last Edited on</strong> {{editedTimestamp}}</div></div>
+
     <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html">Powered by CK Editor</a></div>
 
     <div class="controls">
-        <button type="button" class="btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
-        <button type="button" class="btn btn-outline-info" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
-        <button type="button" class="btn btn-outline-info" (click)="reset()">New</button>
+        <button type="button" class="margin-top btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
+        <button type="button" class="margin-top btn btn-outline-info" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
+        <button type="button" class="margin-top btn btn-outline-info" (click)="reset()">New</button>
     </div>
 </div>
 

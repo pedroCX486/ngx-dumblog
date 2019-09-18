@@ -1,10 +1,15 @@
+//Menu Hover
 .mouse-hover { cursor: pointer; }
 .mouse-hover:hover { background-color: #f5f5f5; }
 
+//Link Hover
 .navigation-hover { cursor: pointer; }
 
-.light { color: #fff !important; }
-
+//Margin
 .margins { margin: 2rem; }
+.header-margin-top {margin-top: 2rem !important; }
+.margins-sides { width: 40%; margin: 0 auto;}
+.margin-top {margin-top: 0.5rem !important; }
 
-.no-border { border: 0px solid #ced4da; }
+//Others
+.timestamp { font-size: 12px; margin-top: 0.3rem; }

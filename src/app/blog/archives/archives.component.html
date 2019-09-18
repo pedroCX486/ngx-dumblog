@@ -1,6 +1,14 @@
-<h1>ARCHIVE VIEW - UNDER CONSTRUCTION</h1>
+<div class="container header-margin-top">
+    <div class="jumbotron">
+        <h1 class="display-4">Archives</h1>
+        <p class="lead">Here you can find all the blog's posts.</p>
+    </div>
+</div>
+
 <div class="card margins">
     <ul class="list-group list-group-flush">
         <li class="list-group-item mouse-hover" *ngFor="let archive of archives"><a href="/?post={{archive.filename}}">{{archive.postTitle}}</a></li>
     </ul>
 </div>
+
+<a href="/"><button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button></a>

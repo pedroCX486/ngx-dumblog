@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   postContent = '';
   timestamp = '';
   editedTimestamp = '';
+  filename = '';
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +21,9 @@ export class HomeComponent implements OnInit {
     this.getJSON("hello-world").subscribe(data => {
       this.postContent = data.content;
       this.postTitle = data.title;
-      this.timestamp = data.timestamp;
-      this.editedTimestamp = data.editedTimestamp;
+      this.timestamp = new Date(data.timestamp*1000).toUTCString();
+      this.editedTimestamp =new Date(data.editedTimestamp*1000).toUTCString();
+      this.filename = data.filename;
     });
   }
 

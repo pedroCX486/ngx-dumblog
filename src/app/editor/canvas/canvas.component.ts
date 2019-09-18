@@ -49,8 +49,8 @@ export class CanvasComponent implements OnInit {
     this.getJSON(file).subscribe(data => {
       this.postContent = data.content;
       this.postTitle = data.title;
-      this.timestamp = data.timestamp;
-      this.editedTimestamp = data.editedTimestamp;
+      this.timestamp = new Date(data.timestamp*1000).toUTCString();
+      this.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
     });
   }
 
@@ -79,12 +79,12 @@ export class CanvasComponent implements OnInit {
   }
 
   createPostObj(){
-    var postContent = { title: this.postTitle, timestamp: '', editedTimestamp: '', content: this.postContent };
+    var postContent = { title: this.postTitle, timestamp: '', editedTimestamp: '', content: this.postContent, filename: this.parseFilename() };
     if(this.timestamp == null || this.timestamp == ''){
-      postContent.timestamp = Date.now().toString();
+      postContent.timestamp = Math.round((new Date()).getTime() / 1000).toString();
     }else{
       postContent.timestamp = this.timestamp;
-      postContent.editedTimestamp = Date.now().toString();
+      postContent.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
     }
 
     return postContent;
