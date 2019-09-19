@@ -1,19 +1,19 @@
 # ngx-Dumblog
 
-The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! Still in development, design decisions may change. Not ready for production use.
+The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! This version brings a fresh new code to the table. I always thought that the idea of having a local editor was neat, but not really usable for Linux/Mac users (especially me, that have an Linux machine too). So now you have an full-fledged editor online (just for editing, it can't save the files to your repo), customization on the configs.json and a few things more.
 
-## Development server
+## Running locally
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+First run `npm install` then run `ng serve` and navigate to `http://localhost:4200/`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `ng build --prod` to build it.
 
 ## Contributing
 
 Just do a pull request.  :-)
+
+## Why?
+
+Because I always thought Jekyll to be too convoluted and I wanted something dumb and simple. The code isn't an example of awesomeness but it does the job and pretty well at that. Way better than the bullshit that was the old version in JQuery and C#.
