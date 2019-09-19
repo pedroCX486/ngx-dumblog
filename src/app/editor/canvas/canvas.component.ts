@@ -23,17 +23,6 @@ export class CanvasComponent implements OnInit {
     this.loadArchive();
   }
 
-  editorReady(editor) {
-    editor.ui.getEditableElement().parentElement.insertBefore(
-      editor.ui.view.toolbar.element,
-      editor.ui.getEditableElement()
-    );
-  }
-
-  getJSON(arg): Observable<any> {
-    return this.http.get("./assets/posts/"+ arg +".json");
-  }
-
   loadArchive(){
     this.getJSON('archive').subscribe(data => {
       this.archives = data;
@@ -99,5 +88,16 @@ export class CanvasComponent implements OnInit {
 
   reset(){
     this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
+  }
+
+  getJSON(arg): Observable<any> {
+    return this.http.get("./assets/posts/"+ arg +".json");
+  }
+
+  editorReady(editor) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
   }
 }

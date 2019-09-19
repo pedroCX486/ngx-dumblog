@@ -41,8 +41,8 @@ export class HomeComponent implements OnInit {
     this.getJSON("./assets/posts/archive.json").subscribe(data => {
       this.archives = data;
 
-      if(this.archives.length < this.configs.showposts){
-        this.configs.maxposts = this.archives.length;
+      if(this.archives.length < this.configs.maxPosts){
+        this.configs.maxPosts = this.archives.length;
       }
 
       this.loadPosts();
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadPosts(){
-    for(var i = 0; i < this.configs.maxposts; i++){
+    for(var i = 0; i < this.configs.maxPosts; i++){
       this.getJSON("./assets/posts/"+ this.archives[i].filename +".json").subscribe(data => {
         this.contents.push(data);
       }, error => {

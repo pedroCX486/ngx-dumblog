@@ -1,3 +1,7 @@
 .jumbotron { padding: 2em 2rem !important; }
 .avatar {max-width: 150px; max-height: 150px; margin-right: 1rem; border-radius: 50%;}
 .profile-box { display: flex !important}
+
+@media (max-width: 544px) {  
+    .display-4{font-size:2rem !important;}
+}

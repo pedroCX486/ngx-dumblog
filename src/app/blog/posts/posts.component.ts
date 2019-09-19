@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-posts',
@@ -14,14 +15,14 @@ export class PostsComponent implements OnInit {
   content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
   configs;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private titleService: Title) { }
 
   ngOnInit() {
+    this.loadConfigs();
+
     if(this.urlParams.get('post')){
       this.loadPost();
     }
-
-    this.loadConfigs();
   }
 
   getJSON(arg): Observable<any> {
@@ -39,6 +40,8 @@ export class PostsComponent implements OnInit {
       this.content = data;
       this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
       this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
+
+      this.titleService.setTitle(this.content.postTitle + " - " + this.configs.blogTitle);
     }, error => {
       this.content = {postTitle: 'Whoops!', timestamp: '', editedTimestamp: '', postContent: 'Post not found!', filename: ''};
     });

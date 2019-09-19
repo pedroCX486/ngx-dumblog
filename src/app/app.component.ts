@@ -13,25 +13,15 @@ import { Router } from '@angular/router';
 
 export class AppComponent {
 
-  blogTitle;
-  about;
-
   urlParams = new URLSearchParams(window.location.search);
+  blogTitle;
 
   constructor(private http: HttpClient, private titleService: Title, private router: Router) {
-    this.getJSON().subscribe(data => {
-      this.blogTitle = data.blogtitle;
-      this.titleService.setTitle(this.blogTitle);
-
-      this.about = data.about;
-    });
-  }
-
-  navigate(arg){
-    this.router.navigate([arg], { skipLocationChange: true });
   }
 
   ngOnInit(){
+    this.setTitle();
+
     if(this.urlParams.get('post')){
       this.router.navigate(['/blog/posts'], {queryParams: { post: this.urlParams.get('post')}, skipLocationChange: true });
     }else{
@@ -47,6 +37,17 @@ export class AppComponent {
         break;
       }
     }
+  }
+
+  navigate(arg){
+    this.router.navigate([arg], { skipLocationChange: true });
+  }
+
+  setTitle(){
+    this.getJSON().subscribe(data => {
+      this.blogTitle = data.blogTitle;
+      this.titleService.setTitle(this.blogTitle);
+    });
   }
 
   getJSON(): Observable<any> {

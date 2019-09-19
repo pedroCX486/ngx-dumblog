@@ -1,7 +1,7 @@
 {
-    "blogtitle": "My New Blog",
+    "blogTitle": "My New Blog",
     "avatar": "avatar.png",
     "name": "Your Name",
     "bio": "Your Bio. Who are you? ;)",
-    "showposts": 5
+    "maxPosts": 5
 }
