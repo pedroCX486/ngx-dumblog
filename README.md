@@ -6,6 +6,10 @@ The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully w
 
 You can download the pre-built version in the (release page)[https://github.com/pedroCX486/ngx-dumblog/releases/latest]. Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit to your github.io repo!
 
+## Creating and editing posts
+
+You can go to YOUR_USERNAME.github.io/?page=editor to see the online editor. From there you can create and edit posts. To have those posts reflect on Github, you need to paste and commit the files it generates in the assets/posts folder of your install.
+
 ## Running locally
 
 First run `npm install` then run `ng serve` and navigate to `http://localhost:4200/`.
