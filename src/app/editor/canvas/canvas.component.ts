@@ -49,6 +49,7 @@ export class CanvasComponent implements OnInit {
     let that = this;
     if(!this.archives.some(function(element){ return element.postTitle == that.content.postTitle})){
       saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), "archive.json");
+      this.entryExists = false;
     }else{
       this.entryExists = true;
     }
