@@ -1,19 +1,19 @@
 <div class="card margins">
-    <h4 class="card-header"><a href="/?post={{filename}}">{{postTitle}}</a><div class="timestamp text-muted" *ngIf="!!timestamp"><strong>Posted on</strong>&nbsp;{{timestamp}}&nbsp;<div *ngIf="!!editedTimestamp"><strong>Edited on</strong> {{editedTimestamp}}</div></div></h4>
+    <h4 class="card-header"><a href="/?post={{content.filename}}">{{content.postTitle}}</a><div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Posted on</strong>&nbsp;{{content.timestamp}}&nbsp;<div *ngIf="!!content.editedTimestamp"><strong>Edited on</strong> {{content.editedTimestamp}}</div></div></h4>
     <div class="card-body">
-        <p class="card-text" [innerHTML]="postContent"></p>
+        <p class="card-text" [innerHTML]="content.postContent"></p>
     </div>
 </div>
 
-<div class="container header-margin-top">
+<div class="container header-margin-top" *ngIf="!!configs">
     <div class="jumbotron">
         <div class="profile-box">
             <div>
-                <img class="avatar" src="./assets/avatar.jpg">
+                <img class="avatar" src="./assets/{{configs.avatar}}">
             </div>
             <div>
-                <h1 class="display-4">Your Name</h1>
-                <p class="lead">Your bio. Who are you? ;)</p>
+                <h1 class="display-4">{{configs.name}}</h1>
+                <p class="lead">{{configs.bio}}</p>
             </div>
         </div>
     </div>
@@ -22,3 +22,5 @@
 <a href="/"><button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button></a>
 
 <a href="/?page=archives"><button type="button" class="margin-top margins-sides btn btn-primary btn-block">Go to the Archives</button></a>
+
+<div class="empty"></div>

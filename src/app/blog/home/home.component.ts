@@ -9,26 +9,58 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  postTitle = '';
-  postContent = '';
-  timestamp = '';
-  editedTimestamp = '';
-  filename = '';
+  contents = [];
+  archives = [];
+  configs;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getJSON("hello-world").subscribe(data => {
-      this.postContent = data.content;
-      this.postTitle = data.title;
-      this.timestamp = new Date(data.timestamp*1000).toUTCString();
-      this.editedTimestamp =new Date(data.editedTimestamp*1000).toUTCString();
-      this.filename = data.filename;
-    });
+    // this.getJSON("./assets/posts/hello-world.json").subscribe(data => {
+    //   this.content = data;
+    //   this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
+    //   this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
+    // }, error => {
+    //   this.content = {postTitle: 'Aw shucks!', timestamp: '', editedTimestamp: '', postContent: 'We couldn\'t load this post! Sorry!', filename: ''};
+    // });
+    this.loadConfigs();
   }
 
   getJSON(arg): Observable<any> {
-    return this.http.get("./assets/posts/"+ arg +".json");
+    return this.http.get(arg);
+  }
+
+  loadConfigs(){
+    this.getJSON("./assets/configs.json").subscribe(data => {
+      this.configs = data;
+      this.loadArchive();
+    });
+  }
+
+  loadArchive(){
+    this.getJSON("./assets/posts/archive.json").subscribe(data => {
+      this.archives = data;
+
+      if(this.archives.length < this.configs.showposts){
+        this.configs.maxposts = this.archives.length;
+      }
+
+      this.loadPosts();
+    });
+  }
+
+  loadPosts(){
+    for(var i = 0; i < this.configs.maxposts; i++){
+      this.getJSON("./assets/posts/"+ this.archives[i].filename +".json").subscribe(data => {
+        this.contents.push(data);
+      }, error => {
+        this.contents.push({postTitle: 'Aw shucks!', timestamp: '', editedTimestamp: '', postContent: 'We couldn\'t load this post! Sorry!', filename: ''});
+      });
+    }
+  }
+
+  parseTimestamp(timestamp){
+    return new Date(timestamp*1000).toUTCString();
   }
 
 }

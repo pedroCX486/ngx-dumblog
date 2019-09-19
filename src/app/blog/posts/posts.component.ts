@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-posts',
@@ -12,11 +11,8 @@ export class PostsComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
 
-  postTitle = '...';
-  postContent = '...';
-  timestamp = '';
-  editedTimestamp = '';
-  filename = '';
+  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
+  configs;
 
   constructor(private http: HttpClient) { }
 
@@ -24,22 +20,27 @@ export class PostsComponent implements OnInit {
     if(this.urlParams.get('post')){
       this.loadPost();
     }
+
+    this.loadConfigs();
   }
 
   getJSON(arg): Observable<any> {
-    return this.http.get("./assets/posts/"+ arg +".json");
+    return this.http.get(arg);
+  }
+
+  loadConfigs(){
+    this.getJSON("./assets/configs.json").subscribe(data => {
+      this.configs = data;
+    });
   }
 
   loadPost(){
-    this.getJSON(this.urlParams.get('post')).subscribe(data => {
-      this.postContent = data.content;
-      this.postTitle = data.title;
-      this.timestamp = new Date(data.timestamp*1000).toUTCString();
-      this.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
-      this.filename = data.filename;
+    this.getJSON("./assets/posts/"+ this.urlParams.get('post') +".json").subscribe(data => {
+      this.content = data;
+      this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
+      this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
     }, error => {
-      this.postTitle = 'Whoops!';
-      this.postContent = 'Post not found!';
+      this.content = {postTitle: 'Whoops!', timestamp: '', editedTimestamp: '', postContent: 'Post not found!', filename: ''};
     });
   }
 

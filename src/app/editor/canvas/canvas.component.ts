@@ -13,14 +13,8 @@ import { Observable } from 'rxjs';
 export class CanvasComponent implements OnInit {
 
   Editor = DecoupledEditor;
-  postTitle = '';
-  postContent = 'A new post...';
-  timestamp = '';
-  editedTimestamp = '';
-
+  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post...', filename: ''};
   archives = [];
-
-  entryExists = false;
 
   constructor(private http: HttpClient) { }
 
@@ -47,16 +41,15 @@ export class CanvasComponent implements OnInit {
 
   loadPost(file){
     this.getJSON(file).subscribe(data => {
-      this.postContent = data.content;
-      this.postTitle = data.title;
-      this.timestamp = new Date(data.timestamp*1000).toUTCString();
-      this.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
+      this.content = data;
+      this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
+      this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
     });
   }
 
   saveAll(){
-    if(this.postTitle == null || this.postTitle == ''){
-      this.postTitle = 'No title';
+    if(this.content.postTitle == ''){
+      this.content.postTitle = 'No title';
     }
 
     //Save post
@@ -64,26 +57,24 @@ export class CanvasComponent implements OnInit {
 
     //Save archive but first check if we're saving some post that exists, if so, don't save the archive
     let that = this;
-    if(!this.archives.some(function(element){ return element.postTitle == that.postTitle})){
+    if(!this.archives.some(function(element){ return element.postTitle == that.content.postTitle})){
       saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), "archive.json");
-    }else{
-      this.entryExists = true;
     }
   }
 
   createArchiveObj(){
-    var archive = { postTitle: this.postTitle, filename: this.parseFilename() };
+    var archive = { postTitle: this.content.postTitle, filename: this.parseFilename() };
     this.archives.unshift(archive);
 
     return this.archives;
   }
 
   createPostObj(){
-    var postContent = { title: this.postTitle, timestamp: '', editedTimestamp: '', content: this.postContent, filename: this.parseFilename() };
-    if(this.timestamp == null || this.timestamp == ''){
+    var postContent = { postTitle: this.content.postTitle, timestamp: '', editedTimestamp: '', postContent: this.content.postContent, filename: this.parseFilename() };
+    if(this.content.timestamp == ''){
       postContent.timestamp = Math.round((new Date()).getTime() / 1000).toString();
     }else{
-      postContent.timestamp = this.timestamp;
+      postContent.timestamp = Math.round((new Date(this.content.timestamp)).getTime() / 1000).toString();
       postContent.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
     }
 
@@ -91,7 +82,7 @@ export class CanvasComponent implements OnInit {
   }
 
   parseFilename(){
-    var filename = this.postTitle;
+    var filename = this.content.postTitle;
 
     filename = filename.replace(/[^a-zA-Z0-9_]+/gi, "-").toLowerCase();
 
@@ -104,9 +95,6 @@ export class CanvasComponent implements OnInit {
   }
 
   reset(){
-    this.postTitle = '';
-    this.postContent = 'A new post...';
-    this.timestamp = '';
-    this.editedTimestamp = '';
+    this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
   }
 }
