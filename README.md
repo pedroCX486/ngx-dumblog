@@ -2,6 +2,10 @@
 
 The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! This version brings a fresh new code to the table. I always thought that the idea of having a local editor was neat, but not really usable for Linux/Mac users (especially me, that have an Linux machine too). So now you have an full-fledged editor online (just for editing, it can't save the files to your repo), customization on the configs.json and a few things more.
 
+## Pre-built version
+
+You can download the pre-built version in the (release page)[https://github.com/pedroCX486/ngx-dumblog/releases/latest]. Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit to your github.io repo!
+
 ## Running locally
 
 First run `npm install` then run `ng serve` and navigate to `http://localhost:4200/`.
