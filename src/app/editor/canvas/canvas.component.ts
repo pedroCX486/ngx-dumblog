@@ -15,6 +15,7 @@ export class CanvasComponent implements OnInit {
   Editor = DecoupledEditor;
   content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post...', filename: ''};
   archives = [];
+  entryExists = false;
 
   constructor(private http: HttpClient) { }
 
@@ -59,6 +60,8 @@ export class CanvasComponent implements OnInit {
     let that = this;
     if(!this.archives.some(function(element){ return element.postTitle == that.content.postTitle})){
       saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), "archive.json");
+    }else{
+      this.entryExists = true;
     }
   }
 
