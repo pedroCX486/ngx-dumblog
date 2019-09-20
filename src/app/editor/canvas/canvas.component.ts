@@ -67,10 +67,11 @@ export class CanvasComponent implements OnInit {
 
   createPostObj(){
     var postContent = { postTitle: this.content.postTitle, timestamp: '', editedTimestamp: '', postContent: this.content.postContent, filename: this.parseFilename() };
+  
     if(this.content.timestamp == ''){
       postContent.timestamp = Math.round((new Date()).getTime() / 1000).toString();
     }else{
-      postContent.timestamp = Math.round((new Date(this.content.timestamp)).getTime() / 1000).toString();
+      postContent.timestamp = this.content.timestamp;
       postContent.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
     }
 
