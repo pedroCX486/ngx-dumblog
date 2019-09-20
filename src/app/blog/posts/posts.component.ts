@@ -32,6 +32,10 @@ export class PostsComponent implements OnInit {
   loadConfigs(){
     this.getJSON("./assets/configs.json").subscribe(data => {
       this.configs = data;
+
+      if(this.configs.enableDisqus){
+        this.loadDisqus();
+      }
     });
   }
 
@@ -47,4 +51,13 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  loadDisqus(){
+    const body = <HTMLDivElement> document.body;
+    const script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = './assets/disqus.js';
+    script.async = false;
+    script.defer = true;
+    body.appendChild(script);
+  }
 }

@@ -7,7 +7,7 @@
 
 <div class="card margins">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item mouse-hover" *ngFor="let archive of archives"><a href="/?post={{archive.filename}}">{{archive.postTitle}}</a></li>
+        <li class="list-group-item mouse-hover" *ngFor="let archive of archives"><a href="/?post={{archive.filename}}">{{archive.postTitle + parseTimestamp(archive.timestamp)}}</a></li>
     </ul>
 </div>
 

@@ -1,5 +1,5 @@
 <div class="margins">
-    <input [(ngModel)]="content.postTitle" type="text" class="form-control no-border" placeholder="Post title...">
+    <input [(ngModel)]="content.postTitle" type="text" class="form-control no-border" placeholder="Post title">
 
     <ckeditor [(ngModel)]="content.postContent" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
     <div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Created on</strong>&nbsp;{{content.timestamp}}&nbsp;<div *ngIf="!!content.editedTimestamp"><strong>Last Edited on</strong> {{content.editedTimestamp}}</div></div>
@@ -20,17 +20,29 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title">Select a post to load:</h4>
+            <h4 class="modal-title">Load post</h4>
             </div>
             <div class="modal-body">
-                <div class="card">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item mouse-hover" *ngFor="let archive of archives" (click)="loadPost(archive.filename)" data-dismiss="modal">{{archive.postTitle}}</li>
-                    </ul>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="search" placeholder="Search by title" (keyup)="searchArhive($event.target.value)">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchArhive(null, true);">Clear</button>
+                    </div>
+                </div>
+                <div class="scrollable">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item mouse-hover" *ngFor="let archive of filteredArchives" (click)="loadPost(archive.filename)" data-dismiss="modal">{{archive.postTitle}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <div class="pull-left mr-auto">
+                <input type="file" id="file-input" (change)="loadFromFile($event)">
+                <label for="file-input">Load From File</label>
+            </div>
+            <button type="button" class="btn btn-outline-secondary" id="dismiss" data-dismiss="modal">Close</button>
             </div>
         </div>
 

@@ -28,4 +28,12 @@ export class ArchivesComponent implements OnInit {
       this.archives = data;
     });
   }
+
+  parseTimestamp(timestamp){
+    if(!!timestamp){
+      return new Date(timestamp*1000).toUTCString();
+    }else{
+      return "";
+    }
+  }
 }

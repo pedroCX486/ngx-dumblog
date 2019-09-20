@@ -13,9 +13,11 @@ import { Observable } from 'rxjs';
 export class CanvasComponent implements OnInit {
 
   Editor = DecoupledEditor;
-  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post...', filename: ''};
+  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post.', filename: ''};
   archives = [];
   entryExists = false;
+
+  filteredArchives = [];
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +28,7 @@ export class CanvasComponent implements OnInit {
   loadArchive(){
     this.getJSON('archive').subscribe(data => {
       this.archives = data;
+      this.filteredArchives = data;
     });
   }
 
@@ -53,13 +56,12 @@ export class CanvasComponent implements OnInit {
     }else{
       this.entryExists = true;
     }
+
+    this.loadArchive();
   }
 
   createArchiveObj(){
-    var archive = { postTitle: this.content.postTitle, filename: this.parseFilename() };
-    this.archives.unshift(archive);
-
-    return this.archives;
+    return this.archives.unshift({ postTitle: this.content.postTitle, timestamp: Math.round((new Date()).getTime() / 1000).toString(), filename: this.parseFilename() });
   }
 
   createPostObj(){
@@ -85,6 +87,44 @@ export class CanvasComponent implements OnInit {
     }
 
     return filename;
+  }
+
+  searchArhive(arg, clear?){
+    if(!!arg){
+      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
+    }else{
+      this.filteredArchives = this.archives;
+    }
+
+    if(clear){
+      (<HTMLInputElement>document.getElementById("search")).value = "";
+    }
+  }
+
+  loadFromFile(e) {
+    var file = e.target.files[0];
+    let that = this;
+    var reader = new FileReader();
+
+    if (!file) {
+      return;
+    }
+
+    reader.onload = function(e) {
+      var contents = (<FileReader>e.target).result;
+
+      //I know this is crazy but it works.
+      if(Object.keys(JSON.parse(contents.toString())).toString() == Object.keys(that.content).toString()){
+        that.content = JSON.parse(contents.toString());
+      }else{
+        alert('Invalid file! Are you sure it\'s an Dumblog compatible JSON?');
+        return;
+      }
+      document.getElementById('dismiss').click();
+      (<HTMLInputElement>document.getElementById("file-input")).value = "";
+    };
+
+    reader.readAsText(file);
   }
 
   reset(){

@@ -9,7 +9,12 @@
     <div class="jumbotron">
         <div class="profile-box">
             <div>
-                <img class="avatar" src="./assets/{{configs.avatar}}">
+                <img class="avatar center-block" src="./assets/{{configs.avatar}}"><br>
+                <a *ngIf="!!configs.facebook" href="{{configs.facebook}}"><img src="./assets/facebook.png"></a>
+                <a *ngIf="!!configs.twitter" href="{{configs.twitter}}"><img src="./assets/twitter.png"></a>
+                <a *ngIf="!!configs.instagram" href="{{configs.instagram}}"><img src="./assets/instagram.png"></a>
+                <a *ngIf="!!configs.linkedin" href="{{configs.linkedin}}"><img src="./assets/linkedin.png"></a>
+                <a *ngIf="!!configs.youtube" href="{{configs.youtube}}"><img src="./assets/youtube.png"></a>
             </div>
             <div>
                 <h1 class="display-4">{{configs.name}}</h1>
@@ -18,6 +23,7 @@
         </div>
     </div>
 </div>
+<div class="comments" id="disqus_thread" *ngIf="configs?.enableDisqus"></div>
 
 <a href="/"><button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button></a>
 
