@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
 })
 export class ArchivesComponent implements OnInit {
 
-  archives = [];
   urlParams = new URLSearchParams(window.location.search);
+  archives = [];
+  filteredArchives = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -26,6 +27,7 @@ export class ArchivesComponent implements OnInit {
   loadArchive(){
     this.getJSON('archive').subscribe(data => {
       this.archives = data;
+      this.filteredArchives = data;
     });
   }
 
@@ -36,4 +38,16 @@ export class ArchivesComponent implements OnInit {
       return "";
     }
   }
+  
+  searchArhive(arg, clear?){
+    if(!!arg){
+      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
+    }else{
+      this.filteredArchives = this.archives;
+    }
+
+    if(clear){
+      (<HTMLInputElement>document.getElementById("search")).value = "";
+    }
+  } 
 }

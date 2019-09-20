@@ -5,12 +5,17 @@
     </div>
 </div>
 
-<div class="card margins">
+<div class="input-group mb-3 margins-sides">
+    <input type="text" class="form-control" id="search" placeholder="Search by title" (keyup)="searchArhive($event.target.value)">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchArhive(null, true);">Clear</button>
+    </div>
+</div>
+
+<div class="card margins" *ngIf="filteredArchives.length > 0">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item mouse-hover" *ngFor="let archive of archives"><a href="/?post={{archive.filename}}">{{archive.postTitle}}</a> {{parseTimestamp(archive.timestamp)}}</li>
+        <li class="list-group-item mouse-hover" *ngFor="let archive of filteredArchives"><a href="/?post={{archive.filename}}">{{archive.postTitle}}</a><div class="timestamp">{{parseTimestamp(archive.timestamp)}}</div></li>
     </ul>
 </div>
 
-<a href="/"><button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button></a>
-
-<div class="empty"></div>
+<a href="/"><button type="button" class="margins-sides margin-y btn btn-primary btn-block">Go to Home</button></a>

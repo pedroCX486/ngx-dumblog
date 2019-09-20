@@ -136,7 +136,7 @@ export class CanvasComponent implements OnInit {
   }
 
   reset(){
-    this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
+    this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post.', filename: ''};
   }
 
   parseTimestamp(timestamp){

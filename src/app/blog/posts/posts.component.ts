@@ -43,8 +43,11 @@ export class PostsComponent implements OnInit {
     this.getJSON("./assets/posts/"+ this.urlParams.get('post') +".json").subscribe(data => {
       this.content = data;
       this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
-      this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
 
+      if(data.editedTimestamp){
+        this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
+      }
+      
       this.titleService.setTitle(this.content.postTitle + " - " + this.configs.blogTitle);
     }, error => {
       this.content = {postTitle: 'Whoops!', timestamp: '', editedTimestamp: '', postContent: 'Post not found!', filename: ''};
