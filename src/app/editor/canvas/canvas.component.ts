@@ -61,7 +61,8 @@ export class CanvasComponent implements OnInit {
   }
 
   createArchiveObj(){
-    return this.archives.unshift({ postTitle: this.content.postTitle, timestamp: Math.round((new Date()).getTime() / 1000).toString(), filename: this.parseFilename() });
+    this.archives.unshift({ postTitle: this.content.postTitle, timestamp: Math.round((new Date()).getTime() / 1000).toString(), filename: this.parseFilename() });
+    return this.archives;
   }
 
   createPostObj(){
