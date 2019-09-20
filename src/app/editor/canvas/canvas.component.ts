@@ -115,12 +115,18 @@ export class CanvasComponent implements OnInit {
       var contents = (<FileReader>e.target).result;
 
       //I know this is crazy but it works.
-      if(Object.keys(JSON.parse(contents.toString())).toString() == Object.keys(that.content).toString()){
-        that.content = JSON.parse(contents.toString());
-      }else{
+      try {
+        if(Object.keys(JSON.parse(contents.toString())).toString() == Object.keys(that.content).toString()){
+          that.content = JSON.parse(contents.toString());
+        }else{
+          alert('Invalid file! Are you sure it\'s an Dumblog compatible JSON?');
+          return;
+        }
+      } catch (e) {
         alert('Invalid file! Are you sure it\'s an Dumblog compatible JSON?');
         return;
       }
+      
       document.getElementById('dismiss').click();
       (<HTMLInputElement>document.getElementById("file-input")).value = "";
     };
