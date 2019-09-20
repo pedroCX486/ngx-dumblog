@@ -31,7 +31,7 @@ export class ArchivesComponent implements OnInit {
 
   parseTimestamp(timestamp){
     if(!!timestamp){
-      return new Date(timestamp*1000).toUTCString();
+      return "(" + new Date(timestamp*1000).toUTCString() + ")";
     }else{
       return "";
     }

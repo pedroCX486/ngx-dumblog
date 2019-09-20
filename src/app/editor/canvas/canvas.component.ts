@@ -35,8 +35,8 @@ export class CanvasComponent implements OnInit {
   loadPost(file){
     this.getJSON(file).subscribe(data => {
       this.content = data;
-      this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
-      this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
+      this.content.timestamp;
+      this.content.editedTimestamp;
     });
   }
 
@@ -130,6 +130,10 @@ export class CanvasComponent implements OnInit {
 
   reset(){
     this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
+  }
+
+  parseTimestamp(timestamp){
+    return new Date(timestamp*1000).toUTCString();
   }
 
   getJSON(arg): Observable<any> {

@@ -21,7 +21,7 @@ export class AppComponent {
 
   ngOnInit(){
     this.setTitle();
-
+    
     if(this.urlParams.get('post')){
       this.router.navigate(['/blog/posts'], {queryParams: { post: this.urlParams.get('post')}, skipLocationChange: true });
     }else{

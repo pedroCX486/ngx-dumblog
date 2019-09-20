@@ -1,7 +1,7 @@
 {
   "postTitle": "Hello World",
   "timestamp": "1542829615",
-  "editedTimestamp": "1568845666",
+  "editedTimestamp": "",
   "postContent": "<p>Welcome to <strong>ngx-Dumblog</strong>!<br><br>An simple and dumb (<i>really dumb</i>) blog front-end for the GitHub Pages service.<br><br>- First, you won't be able to run this locally because of the CORS settings most browsers have. Maybe IE would let you do it.<br>- In the configs.json file you will find some settings like the 'About' modal text, blog name and how many posts dumblog should load on the home page.<br>- There's also the default favicon, which you can change.<br>- Included in .github.io/?page=editor is the editor called Canvas, based on the CK Editor.<br>- To publish on GitHub Pages you just need to commit to your .github.io repo the files generated in the /dist folder after you run <i><strong>npm install</strong> </i>and then <i><strong>ng build --prod</strong></i> on your console. (I'll publish compiled files when the project reaches stable versions.)<br>- If you use the compiled version, you don't need to (re)build anything. Just modify the configs.json and publish it! The compiled version is generated using <i><strong>ng build --prod</strong></i>. <mark class=\"marker-yellow\"><strong>I DO NOT MODIFY THE FILES AFTER!</strong></mark><br><br>And I guess that's it! Happy blogging!</p>",
   "filename": "hello-world"
 }
