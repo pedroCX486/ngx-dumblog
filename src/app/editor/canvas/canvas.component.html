@@ -3,17 +3,18 @@
 
     <ckeditor [(ngModel)]="content.postContent" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
     <div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Created on</strong>&nbsp;{{parseTimestamp(content.timestamp)}}&nbsp;<div *ngIf="!!content.editedTimestamp"><strong>Last Edited on</strong> {{parseTimestamp(content.editedTimestamp)}}</div></div>
-
-    <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html" target="_blank">Powered by CK Editor</a></div>
+    
+    <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html" target="_blank">Powered by<br>CK Editor</a></div>
 
     <div class="controls">
         <button type="button" class="margin-top btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button> &nbsp;
         <button type="button" class="margin-top btn btn-outline-info" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
-        <button type="button" class="margin-top btn btn-outline-info" (click)="reset()">New</button>
+        <button type="button" class="margin-top btn btn-outline-info" (click)="reset()">New</button> &nbsp; 
+        <button type="button" class="margin-top btn btn-outline-info" (click)="draft()">Draft</button>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal for Loading a Post -->
 <div id="selectionModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -49,7 +50,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal for Saving a Post -->
 <div id="saveModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -69,6 +70,29 @@
                     After the <strong>{{parseFilename()}}.json</strong> is downloaded, and drop the file
                     in the <strong>assets/posts</strong> folder of your Dumblog install.<br><br>
                     Then you can commit the file to your .github.io repo and Dumblog will reflect it as soon as Github rebuilds the repo!
+                </p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal for Drafting -->
+<div id="saveModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">About drafts...</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    By saving your post as a draft, you can load the file later here in the editor to keep editing and publishing later on.<br>
+                    The version saved as draft has no timestamps, only basic into like title, content and filename.
                 </p>
             </div>
             <div class="modal-footer">
