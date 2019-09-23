@@ -1,5 +1,11 @@
 <div class="card margins">
-    <h4 class="card-header"><a href="/?post={{content.filename}}">{{content.postTitle}}</a><div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Posted on</strong>&nbsp;{{content.timestamp}}&nbsp;<div *ngIf="!!content.editedTimestamp"><strong>Edited on</strong> {{content.editedTimestamp}}</div></div></h4>
+    <h4 class="card-header">
+        <a href="/?post={{content.filename}}">{{content.postTitle}}</a>
+        <div class="timestamp text-muted" *ngIf="!!content.draft"><strong>{{content.draft}}</strong></div>
+
+        <div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Posted on</strong>&nbsp;{{content.timestamp}}&nbsp;</div>
+        <div class="timestamp text-muted" *ngIf="!!content.editedTimestamp"><strong>Edited on</strong> {{content.editedTimestamp}}</div>
+    </h4>
     <div class="card-body">
         <p class="card-text" [innerHTML]="content.postContent"></p>
     </div>

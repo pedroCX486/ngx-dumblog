@@ -12,7 +12,7 @@ export class PostsComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
 
-  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: ''};
+  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: '', draft: ''};
   configs;
 
   constructor(private http: HttpClient, private titleService: Title) { }
@@ -38,7 +38,13 @@ export class PostsComponent implements OnInit {
   loadPost(){
     this.getJSON("./assets/posts/"+ this.urlParams.get('post') +".json").subscribe(data => {
       this.content = data;
-      this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
+
+      if(data.timestamp){
+        this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
+      }else{
+        this.content.draft = "Draft: Post not published."
+      }
+
 
       if(data.editedTimestamp){
         this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
@@ -50,7 +56,8 @@ export class PostsComponent implements OnInit {
         this.loadDisqus();
       }
     }, error => {
-      this.content = {postTitle: 'Whoops!', timestamp: '', editedTimestamp: '', postContent: 'Post not found!', filename: ''};
+      this.content.postTitle = "Whoops!";
+      this.content.postContent = "Post not found!";
     });
   }
 
