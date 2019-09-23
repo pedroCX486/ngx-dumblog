@@ -16,7 +16,7 @@
         <button type="button" class="margin-top btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button>
         <br>
         <button type="button" class="margin-top btn btn-outline-success" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
-        <button type="button" class="margin-top btn btn-outline-success" (click)="draft()">Draft</button>
+        <button type="button" class="margin-top btn btn-outline-success" (click)="draft()" data-toggle="modal" data-target="#draftModal">Draft</button>
     </div>
 </div>
 
@@ -66,16 +66,42 @@
             <h4 class="modal-title">About saving...</h4>
             </div>
             <div class="modal-body">
-                <p *ngIf="!entryExists">Your browser will ask you if you want to download multiple files, click <strong>Allow</strong>!<br><br>
+                <p *ngIf="!entryExists">
+                    Your browser will ask you if you want to download multiple files, click <strong>Allow</strong>!<br><br>
                     After the download is done, grab the <strong>archive.json</strong> and the <strong>{{parseFilename()}}.json</strong> and drop them
                     in the <strong>assets/posts</strong> folder of your Dumblog install.<br><br>
                     Then you can commit those files to your .github.io repo and Dumblog will reflect then as soon as Github rebuilds the repo!
                 </p>
-                <p *ngIf="entryExists">Based on the title, it seems you created (or edited) a post with the same name of one that already exists!<br>
+                <p *ngIf="entryExists">
+                    Based on the title, it seems you created (or edited) a post with the same name of one that already exists!<br>
                     So no <strong>archive.json</strong> was generated...<br><br>
                     After the <strong>{{parseFilename()}}.json</strong> is downloaded, and drop the file
                     in the <strong>assets/posts</strong> folder of your Dumblog install.<br><br>
                     Then you can commit the file to your .github.io repo and Dumblog will reflect it as soon as Github rebuilds the repo!
+                </p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal for Drafting a Post -->
+<div id="draftModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">About drafts...</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    The file, click <strong>{{parseFilename()}}.json</strong> was generated as a draft.<br><br>
+                    This means it it has no timestamp (date and time) and will show as a draft if you try to access it manually by visiting ?post={{parseFilename()}}.json as if it was a normal post.<br><br>
+                    You still can load the file for editing in the editor and then save it normally later on for publishing.
                 </p>
             </div>
             <div class="modal-footer">
