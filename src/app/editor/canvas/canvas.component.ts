@@ -46,7 +46,7 @@ export class CanvasComponent implements OnInit {
     }
 
     //Save post
-    saveAs(new Blob([JSON.stringify(this.createPostObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
+    saveAs(new Blob([JSON.stringify(this.createPostObj(false), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
 
     //Save archive but first check if we're saving some post that exists, if so, don't save the archive
     let that = this;
@@ -60,21 +60,28 @@ export class CanvasComponent implements OnInit {
     this.loadArchive();
   }
 
+  draft(){
+    //Save post as draft (no timestamps)
+    saveAs(new Blob([JSON.stringify(this.createPostObj(true), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
+  }
+
   createArchiveObj(){
     this.archives.unshift({ postTitle: this.content.postTitle, timestamp: Math.round((new Date()).getTime() / 1000).toString(), filename: this.parseFilename() });
     return this.archives;
   }
 
-  createPostObj(){
+  createPostObj(isDraft){
     var postContent = { postTitle: this.content.postTitle, timestamp: '', editedTimestamp: '', postContent: this.content.postContent, filename: this.parseFilename() };
   
-    if(this.content.timestamp == ''){
-      postContent.timestamp = Math.round((new Date()).getTime() / 1000).toString();
-    }else{
-      postContent.timestamp = this.content.timestamp;
-      postContent.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
+    if(!isDraft){
+      if(this.content.timestamp == ''){
+        postContent.timestamp = Math.round((new Date()).getTime() / 1000).toString();
+      }else{
+        postContent.timestamp = this.content.timestamp;
+        postContent.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
+      }
     }
-
+    
     return postContent;
   }
 
