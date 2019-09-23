@@ -12,11 +12,11 @@
     <div id="poweredBy"><a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/angular.html" target="_blank">Powered by<br>CK Editor</a></div>
 
     <div class="controls">
-        <button type="button" class="margin-top btn btn-outline-info" (click)="reset()">New</button> &nbsp;
+        <button type="button" class="margin-top btn btn-outline-info" (click)="resetEditor()">New</button> &nbsp;
         <button type="button" class="margin-top btn btn-outline-info" (click)="loadArchive()" data-toggle="modal" data-target="#selectionModal">Load</button>
         <br>
-        <button type="button" class="margin-top btn btn-outline-success" (click)="saveAll()" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
-        <button type="button" class="margin-top btn btn-outline-success" (click)="draft()" data-toggle="modal" data-target="#draftModal">Draft</button>
+        <button type="button" class="margin-top btn btn-outline-success" (click)="savePost(false)" data-toggle="modal" data-target="#saveModal">Save</button> &nbsp;
+        <button type="button" class="margin-top btn btn-outline-success" (click)="savePost(true)" data-toggle="modal" data-target="#draftModal">Draft</button>
     </div>
 </div>
 
@@ -99,9 +99,10 @@
             </div>
             <div class="modal-body">
                 <p>
-                    The file, click <strong>{{parseFilename()}}.json</strong> was generated as a draft.<br><br>
-                    This means it it has no timestamp (date and time) and will show as a draft if you try to access it manually by visiting ?post={{parseFilename()}}.json as if it was a normal post.<br><br>
-                    You still can load the file for editing in the editor and then save it normally later on for publishing.
+                    The file <strong>{{parseFilename()}}.json</strong> was generated as a draft.<br><br>
+                    This means it has no timestamp (date and time) and will show as a draft if you try to access it manually by visiting <strong>?post={{parseFilename()}}.json</strong> 
+                    (after moving it to your <strong>assets/posts</strong> folder and commiting it to your repo), as if it was a normal post.<br><br>
+                    You can still load the file for editing and then save it normally later on for publishing.
                 </p>
             </div>
             <div class="modal-footer">

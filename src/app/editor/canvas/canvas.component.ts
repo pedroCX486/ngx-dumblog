@@ -40,29 +40,31 @@ export class CanvasComponent implements OnInit {
     });
   }
 
-  saveAll(){
+  savePost(isDraft){
+
     if(this.content.postTitle == ''){
       this.content.postTitle = 'No title';
     }
 
-    //Save post
-    saveAs(new Blob([JSON.stringify(this.createPostObj(false), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
-
-    //Save archive but first check if we're saving some post that exists, if so, don't save the archive
-    let that = this;
-    if(!this.archives.some(function(element){ return element.postTitle == that.content.postTitle})){
-      saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), "archive.json");
-      this.entryExists = false;
+    if(isDraft){
+      //Save post as draft (no timestamps)
+      saveAs(new Blob([JSON.stringify(this.createPostObj(true), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
     }else{
-      this.entryExists = true;
+      //Save post for publishing
+      saveAs(new Blob([JSON.stringify(this.createPostObj(false), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
+
+      //Save archive but first check if the post exists, if so, don't save the archive
+      let that = this;
+      if(!this.archives.some(function(element){ return element.postTitle == that.content.postTitle})){
+        saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], {type: "text/plain;charset=utf-8;"}), "archive.json");
+        this.entryExists = false;
+      }else{
+        this.entryExists = true;
+      }
+
+      //Reload archive
+      this.loadArchive();
     }
-
-    this.loadArchive();
-  }
-
-  draft(){
-    //Save post as draft (no timestamps)
-    saveAs(new Blob([JSON.stringify(this.createPostObj(true), null, 2)], {type: "text/plain;charset=utf-8;"}), this.parseFilename() + ".json");
   }
 
   createArchiveObj(){
@@ -94,6 +96,9 @@ export class CanvasComponent implements OnInit {
     {
       filename = filename.slice(0, -1);
     }
+
+    filename = filename.substring(0, 50); //Limit filename size
+    filename = filename.substr(0, Math.min(filename.length, filename.lastIndexOf("-"))); //Re-trim to avoid cutting a word in half.
 
     return filename;
   }
@@ -142,7 +147,7 @@ export class CanvasComponent implements OnInit {
     reader.readAsText(file);
   }
 
-  reset(){
+  resetEditor(){
     this.content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: 'A new post.', filename: ''};
   }
 
