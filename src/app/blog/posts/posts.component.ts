@@ -32,10 +32,6 @@ export class PostsComponent implements OnInit {
   loadConfigs(){
     this.getJSON("./assets/configs.json").subscribe(data => {
       this.configs = data;
-
-      if(this.configs.enableDisqus){
-        this.loadDisqus();
-      }
     });
   }
 
@@ -49,6 +45,10 @@ export class PostsComponent implements OnInit {
       }
       
       this.titleService.setTitle(this.content.postTitle + " - " + this.configs.blogTitle);
+
+      if(this.configs.enableDisqus){
+        this.loadDisqus();
+      }
     }, error => {
       this.content = {postTitle: 'Whoops!', timestamp: '', editedTimestamp: '', postContent: 'Post not found!', filename: ''};
     });
