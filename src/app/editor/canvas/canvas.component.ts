@@ -97,8 +97,13 @@ export class CanvasComponent implements OnInit {
       filename = filename.slice(0, -1);
     }
 
-    filename = filename.substring(0, 50); //Limit filename size
-    filename = filename.substr(0, Math.min(filename.length, filename.lastIndexOf("-"))); //Re-trim to avoid cutting a word in half.
+    if(filename.length > 50){ //Limit filename size
+      filename = filename.substring(0, 50); 
+
+      if(filename.includes('-')){
+        filename = filename.substr(0, Math.min(filename.length, filename.lastIndexOf("-"))); //Re-trim to avoid cutting a word in half.
+      }
+    }
 
     return filename;
   }
