@@ -8,7 +8,7 @@ On the configs.json file you'll find options to customize your blog title, avata
 
 ## Pre-built version
 
-You can download the pre-built version in the (release page)[https://github.com/pedroCX486/ngx-dumblog/releases/latest]. Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit to your github.io repo!
+You can download the pre-built version in the [release page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit to your github.io repo!
 
 ## Creating and editing posts
 
