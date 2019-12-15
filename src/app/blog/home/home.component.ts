@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ConfigModel } from 'src/app/models/config.model';
 import { ArchiveModel } from 'src/app/models/archive.model';
 import { PostModel } from 'src/app/models/post.model';
-import { Promise } from 'q';
 
 @Component({
   selector: 'app-home',
