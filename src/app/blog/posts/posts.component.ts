@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { PostModel } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-posts',
@@ -12,7 +13,7 @@ export class PostsComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
 
-  content = {postTitle: '', timestamp: '', editedTimestamp: '', postContent: '', filename: '', draft: ''};
+  content: PostModel = new PostModel();
   configs;
 
   constructor(private http: HttpClient, private titleService: Title) { }
@@ -20,49 +21,39 @@ export class PostsComponent implements OnInit {
   ngOnInit() {
     this.loadConfigs();
 
-    if(this.urlParams.get('post')){
+    if (this.urlParams.get('post')) {
       this.loadPost();
     }
+  }
+
+  loadConfigs() {
+    this.getJSON('./assets/configs.json').subscribe(data => {
+      this.configs = data;
+    });
+  }
+
+  loadPost() {
+    this.getJSON('./assets/posts/' + this.urlParams.get('post') + '.json').toPromise().then(data => {
+      this.content = data;
+      this.content.timestamp = !!this.content.timestamp ? new Date(data.timestamp * 1000).toUTCString() : '';
+      this.content.editedTimestamp = !!this.content.editedTimestamp ? new Date(data.editedTimestamp * 1000).toUTCString() : '';
+      this.titleService.setTitle(this.content.postTitle + ' - ' + this.configs.blogTitle);
+    }).then(data => {
+      if (this.configs.enableDisqus) {
+        this.loadDisqus();
+      }
+    }).catch(error => {
+      this.content.postTitle = 'Whoops!';
+      this.content.postContent = 'We couldn\'t load this post! <strong>(' + error.status + ' ' + error.statusText + ')</strong>';
+    });
   }
 
   getJSON(arg): Observable<any> {
     return this.http.get(arg);
   }
 
-  loadConfigs(){
-    this.getJSON("./assets/configs.json").subscribe(data => {
-      this.configs = data;
-    });
-  }
-
-  loadPost(){
-    this.getJSON("./assets/posts/"+ this.urlParams.get('post') +".json").subscribe(data => {
-      this.content = data;
-
-      if(data.timestamp){
-        this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
-      }else{
-        this.content.draft = "Draft: Post not published."
-      }
-
-
-      if(data.editedTimestamp){
-        this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
-      }
-      
-      this.titleService.setTitle(this.content.postTitle + " - " + this.configs.blogTitle);
-
-      if(this.configs.enableDisqus){
-        this.loadDisqus();
-      }
-    }, error => {
-      this.content.postTitle = "Whoops!";
-      this.content.postContent = "Post not found!";
-    });
-  }
-
-  loadDisqus(){
-    const body = <HTMLDivElement> document.body;
+  loadDisqus() {
+    const body = document.body as HTMLDivElement;
     const script = document.createElement('script');
     script.innerHTML = '';
     script.src = './assets/disqus.js';

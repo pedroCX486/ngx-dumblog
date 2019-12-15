@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ArchiveModel } from 'src/app/models/archive.model';
 
 @Component({
   selector: 'app-archives',
@@ -11,8 +12,8 @@ import { Router } from '@angular/router';
 export class ArchivesComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
-  archives = [];
-  filteredArchives = [];
+  archives: ArchiveModel[] = [];
+  filteredArchives: ArchiveModel[] = [];
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -21,33 +22,33 @@ export class ArchivesComponent implements OnInit {
   }
 
   getJSON(arg): Observable<any> {
-    return this.http.get("./assets/posts/"+ arg +".json");
+    return this.http.get('./assets/posts/' + arg + '.json');
   }
 
-  loadArchive(){
+  loadArchive() {
     this.getJSON('archive').subscribe(data => {
       this.archives = data;
       this.filteredArchives = data;
     });
   }
 
-  parseTimestamp(timestamp){
-    if(!!timestamp){
-      return "(" + new Date(timestamp*1000).toUTCString() + ")";
-    }else{
-      return "";
+  parseTimestamp(timestamp) {
+    if (!!timestamp) {
+      return '(' + new Date(timestamp * 1000).toUTCString() + ')';
+    } else {
+      return '';
     }
   }
-  
-  searchArhive(arg, clear?){
-    if(!!arg){
+
+  searchArhive(arg, clear?) {
+    if (!!arg) {
       this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
-    }else{
+    } else {
       this.filteredArchives = this.archives;
     }
 
-    if(clear){
-      (<HTMLInputElement>document.getElementById("search")).value = "";
+    if (clear) {
+      (document.getElementById('search') as HTMLInputElement).value = '';
     }
-  } 
+  }
 }

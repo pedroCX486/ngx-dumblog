@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
   blogTitle;
@@ -19,31 +19,31 @@ export class AppComponent {
   constructor(private http: HttpClient, private titleService: Title, private router: Router) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.setTitle();
-    
-    if(this.urlParams.get('post')){
-      this.router.navigate(['/blog/posts'], {queryParams: { post: this.urlParams.get('post')}, skipLocationChange: true });
-    }else{
-      switch (this.urlParams.get('page')){
+
+    if (this.urlParams.get('post')) {
+      this.router.navigate(['/blog/posts'], { queryParams: { post: this.urlParams.get('post') }, skipLocationChange: true });
+    } else {
+      switch (this.urlParams.get('page')) {
         case 'editor':
           this.router.navigate(['/editor'], { skipLocationChange: true });
-        break;
+          break;
         case 'archives':
           this.router.navigate(['/blog/archives'], { skipLocationChange: true });
-        break;
+          break;
         default:
           this.router.navigate(['/blog'], { skipLocationChange: true });
-        break;
+          break;
       }
     }
   }
 
-  navigate(arg){
+  navigate(arg) {
     this.router.navigate([arg], { skipLocationChange: true });
   }
 
-  setTitle(){
+  setTitle() {
     this.getJSON().subscribe(data => {
       this.blogTitle = data.blogTitle;
       this.titleService.setTitle(this.blogTitle);
@@ -51,7 +51,7 @@ export class AppComponent {
   }
 
   getJSON(): Observable<any> {
-    return this.http.get("./assets/configs.json");
+    return this.http.get('./assets/configs.json');
   }
 
 }

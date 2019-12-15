@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConfigModel } from 'src/app/models/config.model';
+import { ArchiveModel } from 'src/app/models/archive.model';
+import { PostModel } from 'src/app/models/post.model';
+import { Promise } from 'q';
 
 @Component({
   selector: 'app-home',
@@ -9,58 +13,60 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  contents = [];
-  archives = [];
-  configs;
+  contents: PostModel[] = [];
+  archives: ArchiveModel[] = [];
+  configs: ConfigModel;
+  postsLoaded = 0;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    // this.getJSON("./assets/posts/hello-world.json").subscribe(data => {
-    //   this.content = data;
-    //   this.content.timestamp = new Date(data.timestamp*1000).toUTCString();
-    //   this.content.editedTimestamp = new Date(data.editedTimestamp*1000).toUTCString();
-    // }, error => {
-    //   this.content = {postTitle: 'Aw shucks!', timestamp: '', editedTimestamp: '', postContent: 'We couldn\'t load this post! Sorry!', filename: ''};
-    // });
     this.loadConfigs();
+  }
+
+  loadConfigs() {
+    this.getJSON('./assets/configs.json').toPromise().then((data) => {
+      this.configs = data;
+    }).then(data => this.loadArchive());
+  }
+
+  loadArchive() {
+    this.getJSON('./assets/posts/archive.json').toPromise().then(data => {
+      this.archives = data;
+      this.configs.maxPosts = this.archives.length < this.configs.maxPosts ? this.archives.length : this.configs.maxPosts;
+    }).then(data => this.loadPosts());
+  }
+
+  loadPosts() {
+    if (this.postsLoaded < this.configs.maxPosts) {
+      this.getJSON('./assets/posts/' + this.archives[this.postsLoaded].filename + '.json').toPromise().then(data => {
+        this.contents.push(data);
+      }).then(data => {
+        this.continue();
+      }).catch(error => {
+        this.continue(error);
+      });
+    }
+  }
+
+  continue(error?) {
+    if (error) {
+      const errorPost = new PostModel();
+      errorPost.postTitle = 'Aw shucks!';
+      errorPost.postContent = 'We couldn\'t load this post! Sorry! <strong>(' + error.status + ' ' + error.statusText + ')</strong>';
+      errorPost.filename = 'not-found';
+      this.contents.push(errorPost);
+    }
+
+    this.postsLoaded += 1;
+    this.loadPosts();
+  }
+
+  parseTimestamp(timestamp) {
+    return new Date(timestamp * 1000).toUTCString();
   }
 
   getJSON(arg): Observable<any> {
     return this.http.get(arg);
   }
-
-  loadConfigs(){
-    this.getJSON("./assets/configs.json").subscribe(data => {
-      this.configs = data;
-      this.loadArchive();
-    });
-  }
-
-  loadArchive(){
-    this.getJSON("./assets/posts/archive.json").subscribe(data => {
-      this.archives = data;
-
-      if(this.archives.length < this.configs.maxPosts){
-        this.configs.maxPosts = this.archives.length;
-      }
-
-      this.loadPosts();
-    });
-  }
-
-  loadPosts(){
-    for(var i = 0; i < this.configs.maxPosts; i++){
-      this.getJSON("./assets/posts/"+ this.archives[i].filename +".json").subscribe(data => {
-        this.contents.push(data);
-      }, error => {
-        this.contents.push({postTitle: 'Aw shucks!', timestamp: '', editedTimestamp: '', postContent: 'We couldn\'t load this post! Sorry!', filename: ''});
-      });
-    }
-  }
-
-  parseTimestamp(timestamp){
-    return new Date(timestamp*1000).toUTCString();
-  }
-
 }
