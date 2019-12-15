@@ -53,19 +53,36 @@ export class CanvasComponent implements OnInit {
 
     if (isDraft) {
       // Save post as draft (no timestamps)
+      this.content.filename = this.parseFilename();
+
       saveAs(new Blob(
-        [JSON.stringify(this.createPostObj(true), null, 2)], { type: 'text/plain;charset=utf-8;' }), this.parseFilename() + '.json'
+        [JSON.stringify(this.content, null, 2)], { type: 'text/plain;charset=utf-8;' }), this.content.filename + '.json'
       );
     } else {
       // Save post for publishing
+      this.content.filename = this.parseFilename();
+
+      if (!this.content.timestamp) {
+        this.content.timestamp = Math.round((new Date()).getTime() / 1000).toString();
+      } else {
+        this.content.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
+      }
+
       saveAs(new Blob(
-        [JSON.stringify(this.createPostObj(false), null, 2)], { type: 'text/plain;charset=utf-8;' }), this.parseFilename() + '.json'
+        [JSON.stringify(this.content, null, 2)], { type: 'text/plain;charset=utf-8;' }), this.content.filename + '.json'
       );
 
       // Save archive but first check if the post exists, if so, don't save the archive
       const that = this;
       if (!this.archives.some((post => post.postTitle === that.content.postTitle))) {
-        saveAs(new Blob([JSON.stringify(this.createArchiveObj(), null, 2)], { type: 'text/plain;charset=utf-8;' }), 'archive.json');
+        this.archives.unshift({
+          postTitle: this.content.postTitle,
+          timestamp: Math.round((new Date()).getTime() / 1000).toString(),
+          filename: this.parseFilename()
+        });
+
+        saveAs(new Blob([JSON.stringify(this.archives, null, 2)], { type: 'text/plain;charset=utf-8;' }), 'archive.json');
+
         this.entryExists = false;
       } else {
         this.entryExists = true;
@@ -74,48 +91,6 @@ export class CanvasComponent implements OnInit {
       // Reload archive
       this.loadArchive();
     }
-  }
-
-  createArchiveObj() {
-    this.archives.unshift(
-      { postTitle: this.content.postTitle, timestamp: Math.round((new Date()).getTime() / 1000).toString(), filename: this.parseFilename() }
-    );
-
-    return this.archives;
-  }
-
-  createPostObj(isDraft) {
-    this.content.filename = this.parseFilename();
-
-    if (!isDraft) {
-      if (!this.content.timestamp) {
-        this.content.timestamp = Math.round((new Date()).getTime() / 1000).toString();
-      } else {
-        this.content.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
-      }
-    }
-
-    return this.content;
-  }
-
-  parseFilename() {
-    let filename = this.content.postTitle;
-
-    filename = filename.replace(/[^a-zA-Z0-9_]+/gi, '-').toLowerCase();
-
-    while (filename.endsWith('-')) {
-      filename = filename.slice(0, -1);
-    }
-
-    if (filename.length > 50) { // Limit filename size
-      filename = filename.substring(0, 50);
-
-      if (filename.includes('-')) {
-        filename = filename.substr(0, Math.min(filename.length, filename.lastIndexOf('-'))); // Re-trim to avoid cutting a word in half.
-      }
-    }
-
-    return filename;
   }
 
   searchArhive(arg, clear?) {
@@ -171,6 +146,26 @@ export class CanvasComponent implements OnInit {
     this.content = new PostModel();
     this.content.postTitle = '';
     this.content.postContent = 'A new post.';
+  }
+
+  parseFilename() {
+    let filename = this.content.postTitle;
+
+    filename = filename.replace(/[^a-zA-Z0-9_]+/gi, '-').toLowerCase();
+
+    while (filename.endsWith('-')) {
+      filename = filename.slice(0, -1);
+    }
+
+    if (filename.length > 50) { // Limit filename size
+      filename = filename.substring(0, 50);
+
+      if (filename.includes('-')) {
+        filename = filename.substr(0, Math.min(filename.length, filename.lastIndexOf('-'))); // Re-trim to avoid cutting a word in half.
+      }
+    }
+
+    return filename;
   }
 
   parseTimestamp(timestamp) {
