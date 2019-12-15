@@ -4,7 +4,7 @@ The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully w
 
 ## Customizations
 
-On the configs.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts show the home page load at once.
+On the configs.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts show the home page loads at once.
 
 ## Pre-built version
 
