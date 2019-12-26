@@ -4,15 +4,15 @@ The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully w
 
 ## Customizations
 
-On the configs.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts show the home page loads at once.
+On the configs.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts will be shown on the home page.
 
 ## Pre-built version
 
-You can download the pre-built version in the [release page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit to your github.io repo!
+You can download the pre-built version in the [releases page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit the files to your github.io repo!
 
 ## Creating and editing posts
 
-You can go to YOUR_USERNAME.github.io/?page=editor to see the online editor. From there you can create and edit posts. To have those posts reflect on Github, you need to paste and commit the files it generates in the assets/posts folder of your install.
+You can go to YOUR_USERNAME.github.io/?page=editor to see the online editor. From there you can create and edit posts. To have those posts reflect on Github, you need to place and commit the files it generates in the assets/posts folder of your install.
 
 ## Running locally
 
