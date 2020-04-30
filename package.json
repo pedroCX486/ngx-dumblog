@@ -23,7 +23,7 @@
     "@ckeditor/ckeditor5-build-decoupled-document": "^12.4.0",
     "bootstrap": "^4.4.1",
     "file-saver": "^2.0.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ngx-bootstrap": "^5.2.0",
     "popper.js": "^1.16.0",
     "rxjs": "~6.5.4",
