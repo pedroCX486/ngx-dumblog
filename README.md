@@ -1,3 +1,13 @@
+## Incoming Changes
+
+Recently I decided to 'fork' dumblog into another blogging app, that will be published under the 'ngx-mkdumblog' name, this version will be powered by a Markdown editor and renderer, that will allow you to write your posts in Markdown.
+
+I don't plan on currently deprecating this version (ngx-dumblog), as some of you may not be used/like markdown to write long texts, but as always it'll be open for contributions.
+
+Those versions won't be compatible with each other, but I still plan to bring some changes from the new version into this one, like the upgraded layout and complete removal of Bootstrap and its dependencies to make it even more lightweight.
+
+------------------
+
 # ngx-Dumblog
 
 The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! This version brings a fresh new code to the table. I always thought that the idea of having a local editor was neat, but not really usable for Linux/Mac users (especially me, that own an Linux machine too). So now you have an full-fledged editor online (just for editing, it can't save the files to your repo), customization on the configs.json and a few things more.
