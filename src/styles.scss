@@ -1,5 +1,6 @@
 *:not(.fade) {
     -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
   }
 
 @keyframes fadein {
@@ -15,7 +16,7 @@
 .navigation-hover { cursor: pointer; }
 
 //Margin
-.margins { margin: 2rem; }
+.margins { margin: 1rem; }
 .header-margin-top {margin-top: 2rem !important; }
 .margins-sides { width: 40%; margin: 0 auto; }
 .margin-top {margin-top: 0.5rem !important; }
@@ -23,3 +24,13 @@
 
 //Timestamp
 .timestamp { font-size: 12px; margin-top: 0.3rem; }
+
+// Card: No borders, Round heading border
+.card-header {
+    border-bottom: none;
+    border-radius: 5px;
+}
+
+.card {
+    border: none;
+}
