@@ -1,4 +1,4 @@
-name: NGX-Dumblog CI
+name: ngx-dumblog CI
 
 on: [push]
 
@@ -20,6 +20,6 @@ jobs:
     - name: npm install and build
       run: |
         npm install
-        npm run build -- --prod
+        npm run build
       env:
         CI: true
