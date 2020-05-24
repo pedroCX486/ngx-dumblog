@@ -18,7 +18,7 @@ On the configs.json file you'll find options to customize your blog title, avata
 
 ## Pre-built version
 
-You can download the pre-built version in the [releases page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit the files to your github.io repo!
+You can download the pre-built versions in the [releases page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit the files to your github.io repo!
 
 ## Creating and editing posts
 
@@ -30,7 +30,7 @@ First run `npm install` then run `ng serve` and navigate to `http://localhost:42
 
 ## Build
 
-Run `ng build --prod` to build it. You can also run `custom-build.bat` to build it and then have the index.html title changed after build. But **first** change the variable BLOGNAME inside the .bat file! I intend to add a tool in the future capable of reading the name from the configs.json and then updating the index.html after the build, instead of keeping this .bat file.
+Run `npm run build` to build it. You can also run `custom-build.bat` to build it and then have the index.html title changed after build. But **first** change the variable BLOGNAME inside the .bat file! I intend to add a tool in the future capable of reading the name from the configs.json and then updating the index.html after the build, instead of keeping this .bat file.
 
 ## Contributing
 
