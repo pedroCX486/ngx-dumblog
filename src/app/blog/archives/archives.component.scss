@@ -1,5 +1,9 @@
 .jumbotron {padding: 1rem 1rem !important; text-align: center !important; }
 
+li {
+    border: 0;
+}
+
 @media (max-width: 675px) {  
     .search-box { width: 70%; margin: 0 auto; }
 }
