@@ -26,7 +26,7 @@ You can go to YOUR_USERNAME.github.io/?page=editor to see the online editor. Fro
 
 ## Running locally
 
-First run `npm install` then run `npm start` and should open automatically on `http://localhost:4200/`.
+First run `npm install` then run `npm start` and it should open automatically on `http://localhost:4200/`.
 
 ## Build
 
