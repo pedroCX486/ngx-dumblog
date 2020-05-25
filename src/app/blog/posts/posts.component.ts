@@ -41,7 +41,7 @@ export class PostsComponent implements OnInit {
       }
     }).catch(error => {
       this.content.postTitle = 'Whoops!';
-      this.content.postContent = 'We couldn\'t load this post! <strong>(' + error.status + ' ' + error.statusText + ')</strong>';
+      this.content.postContent = 'We couldn\'t load this post! <strong>(' + error.status + ')</strong>';
     });
   }
 
