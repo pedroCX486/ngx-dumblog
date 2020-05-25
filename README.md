@@ -1,10 +1,10 @@
-## Incoming Changes
+### Markdown Fork (ngx-mkdumblog)
 
-Recently I decided to 'fork' dumblog into another blogging app, that will be published under the 'ngx-mkdumblog' name, this version will be powered by a Markdown editor and renderer, that will allow you to write your posts in Markdown.
+Recently I decided to 'fork' dumblog into another blogging app, that is published under the 'ngx-mkdumblog' name, this version is powered by a Markdown editor and renderer, that allows you to write your posts in Markdown. It's currently available [in this repo](https://github.com/pedroCX486/ngx-mkdumblog).
 
-I don't plan on currently deprecating this version (ngx-dumblog), as some of you may not be used/like markdown to write long texts, but as always it'll be open for contributions.
+I don't currently plan on deprecating this version (ngx-dumblog), as some of you may not be used/like markdown to write long texts, but as always it'll be open for contributions.
 
-Those versions won't be compatible with each other, but I still plan to bring some changes from the new version into this one, like the upgraded layout and complete removal of Bootstrap and its dependencies to make it even more lightweight.
+**Note:** They aren't compatible with each other!
 
 ------------------
 
@@ -26,7 +26,7 @@ You can go to YOUR_USERNAME.github.io/?page=editor to see the online editor. Fro
 
 ## Running locally
 
-First run `npm install` then run `ng serve` and navigate to `http://localhost:4200/`.
+First run `npm install` then run `npm start` and should open automatically on `http://localhost:4200/`.
 
 ## Build
 
