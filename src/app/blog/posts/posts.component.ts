@@ -19,17 +19,14 @@ export class PostsComponent implements OnInit {
   constructor(private http: HttpClient, private titleService: Title) { }
 
   ngOnInit() {
-    this.loadConfigs();
-
-    if (this.urlParams.get('post')) {
-      this.loadPost();
-    }
-  }
-
-  loadConfigs() {
-    this.getJSON('./assets/configs.json').subscribe(data => {
-      this.configs = data;
-    });
+    // Load configs, then load post
+    this.getJSON('./assets/configs.json').toPromise()
+      .then(data => this.configs = data)
+      .then(() => {
+        if (this.urlParams.get('post')) {
+          this.loadPost();
+        }
+      });
   }
 
   loadPost() {
