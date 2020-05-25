@@ -35,9 +35,9 @@ export class CanvasComponent implements OnInit {
   }
 
   loadPost(file) {
-    this.getJSON(file).subscribe(data => {
+    this.getJSON(file).toPromise().then(data => {
       this.content = data;
-    });
+    }).catch(() => alert('Error loading post! Do you have an working connection?'));
   }
 
   savePost(isDraft) {
@@ -125,12 +125,11 @@ export class CanvasComponent implements OnInit {
         } else {
           alert('Invalid file! Are you sure it\'s an Dumblog compatible JSON?');
           error = true;
-          return;
         }
       } catch (e) {
-        alert('Invalid file! Are you sure it\'s an Dumblog compatible JSON?');
+        alert('Error loading file! Check the console for more info.');
+        console.log(e);
         error = true;
-        return;
       }
 
       document.getElementById('dismiss').click();

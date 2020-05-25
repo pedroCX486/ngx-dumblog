@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { environment } from '@env/environment';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
   blogTitle;
+  isProduction = environment.production;
 
   constructor(private http: HttpClient, private titleService: Title, private router: Router) {
   }
