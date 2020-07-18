@@ -1,8 +1,8 @@
 export class SettingsModel {
     blogTitle: string;
-    avatar: string;
-    name: string;
-    bio: string;
+    yourAvatar: string;
+    yourName: string;
+    yourBio: string;
     facebook: string;
     twitter: string;
     instagram: string;

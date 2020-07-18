@@ -1,8 +1,8 @@
 {
     "blogTitle": "My New Blog",
-    "avatar": "avatar.png",
-    "name": "Your Name",
-    "bio": "Your Bio. Who are you? ;)",
+    "yourAvatar": "avatar.png",
+    "yourName": "Your Name",
+    "yourBio": "Your Bio. Who are you? ;)",
     "facebook": "",
     "twitter": "http://twitter.com",
     "instagram": "http://instagram.com",

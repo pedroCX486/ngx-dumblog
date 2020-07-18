@@ -15,7 +15,7 @@
     <div class="jumbotron">
         <div class="profile-box">
             <div>
-                <img class="avatar" src="./assets/{{settings.avatar}}"><br>
+                <img class="avatar" src="./assets/{{settings.yourAvatar}}"><br>
                 <div class="social-networks">
                     <a *ngIf="!!settings.facebook" href="{{settings.facebook}}"><img src="./assets/social/facebook.png"></a>
                     <a *ngIf="!!settings.twitter" href="{{settings.twitter}}"><img src="./assets/social/twitter.png"></a>
@@ -25,8 +25,8 @@
                 </div>
             </div>
             <div>
-                <h1 class="display-4">{{settings.name}}</h1>
-                <p class="lead">{{settings.bio}}</p>
+                <h1 class="display-4">{{settings.yourName}}</h1>
+                <p class="lead">{{settings.yourBio}}</p>
             </div>
         </div>
     </div>
