@@ -13,10 +13,9 @@ import { HelperService } from '@shared/services/helper.service';
 export class CanvasComponent implements OnInit {
 
   Editor = DecoupledEditor;
-
   public editorConfig = { placeholder: 'Your text' };
-
   content: PostModel = new PostModel();
+  
   archives = [];
   filteredArchives = [];
   entryExists = false;
