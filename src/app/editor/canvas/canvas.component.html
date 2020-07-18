@@ -59,9 +59,9 @@
           </div>
         </div>
         <div class="scrollable">
-          <div class="card">
+          <div class="card margins">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item mouse-hover" *ngFor="let archive of filteredArchives"
+              <li class="list-group-item mouse-hover rounded-edges" *ngFor="let archive of filteredArchives"
                 (click)="loadPost(archive.filename)" data-dismiss="modal">{{archive.postTitle}}</li>
             </ul>
           </div>
