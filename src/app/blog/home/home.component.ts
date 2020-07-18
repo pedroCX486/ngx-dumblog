@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ConfigModel } from 'src/app/models/config.model';
-import { ArchiveModel } from 'src/app/models/archive.model';
-import { PostModel } from 'src/app/models/post.model';
+import { SettingsModel } from '@shared/models/settings.model';
+import { ArchiveModel } from '@shared/models/archive.model';
+import { PostModel } from '@shared/models/post.model';
+import { HelperService } from '@shared/services/helper.service';
 
 @Component({
   selector: 'app-home',
@@ -14,33 +13,34 @@ export class HomeComponent implements OnInit {
 
   contents: PostModel[] = [];
   archives: ArchiveModel[] = [];
-  configs: ConfigModel;
+  settings: SettingsModel;
+
   postsLoaded = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(public helperService: HelperService) { }
 
-  ngOnInit() {
-    this.loadConfigs();
+  ngOnInit(): void {
+    this.loadSettings();
   }
 
-  loadConfigs() {
-    this.getJSON('./assets/configs.json').toPromise().then((data) => {
-      this.configs = data;
-    }).then(data => this.loadArchive());
+  loadSettings(): void {
+    this.helperService.getJSON('./assets/settings.json').toPromise().then((data) => {
+      this.settings = data;
+    }).then(() => this.loadArchive());
   }
 
-  loadArchive() {
-    this.getJSON('./assets/posts/archive.json').toPromise().then(data => {
+  loadArchive(): void {
+    this.helperService.getJSON('./assets/posts/archive.json').toPromise().then(data => {
       this.archives = data;
-      this.configs.maxPosts = this.archives.length < this.configs.maxPosts ? this.archives.length : this.configs.maxPosts;
-    }).then(data => this.loadPosts());
+      this.settings.maxPosts = this.archives.length < this.settings.maxPosts ? this.archives.length : this.settings.maxPosts;
+    }).then(() => this.loadPosts());
   }
 
-  loadPosts() {
-    if (this.postsLoaded < this.configs.maxPosts) {
-      this.getJSON('./assets/posts/' + this.archives[this.postsLoaded].filename + '.json').toPromise().then(data => {
+  loadPosts(): void {
+    if (this.postsLoaded < this.settings.maxPosts) {
+      this.helperService.getJSON('./assets/posts/' + this.archives[this.postsLoaded].filename + '.json').toPromise().then(data => {
         this.contents.push(data);
-      }).then(data => {
+      }).then(() => {
         this.continue();
       }).catch(error => {
         this.continue(error);
@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  continue(error?) {
-    if (error) {
+  continue(error?: any): void {
+    if (!!error) {
       const errorPost = new PostModel();
       errorPost.postTitle = 'Aw shucks!';
       errorPost.postContent = 'We couldn\'t load this post! Sorry! <strong>(' + error.status + ' ' + error.statusText + ')</strong>';
@@ -59,13 +59,5 @@ export class HomeComponent implements OnInit {
 
     this.postsLoaded += 1;
     this.loadPosts();
-  }
-
-  parseTimestamp(timestamp) {
-    return new Date(timestamp * 1000).toUTCString();
-  }
-
-  getJSON(arg): Observable<any> {
-    return this.http.get(arg);
   }
 }

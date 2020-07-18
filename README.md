@@ -10,15 +10,15 @@ I don't plan on deprecating this version (ngx-dumblog), as some of you may not b
 
 # ngx-Dumblog
 
-The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! This version brings a fresh new code to the table. I always thought that the idea of having a local editor was neat, but not really usable for Linux/Mac users (especially me, that own an Linux machine too). So now you have an full-fledged editor online (just for editing, it can't save the files to your repo), customization on the configs.json and a few things more.
+The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! This version brings a fresh new code to the table. I always thought that the idea of having a local editor was neat, but not really usable for Linux/Mac users (especially me, that own an Linux machine too). So now you have an full-fledged editor online (just for editing, it can't save the files to your repo), customization on the settings.json and a few things more.
 
 ## Customizations
 
-On the configs.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts will be shown on the home page.
+On the settings.json file you'll find options to customize your blog title, avatar, bio, social networks (leave the fields empty, don't delete them if you don't want them showing up!), ability to enable Disqus (check the Disqus.js file for more instructions) and ability to select how many posts will be shown on the home page.
 
 ## Pre-built version
 
-You can download the pre-built versions in the [releases page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your configs.json, hello-world.json and archives.json as you'd like and commit the files to your github.io repo!
+You can download the pre-built versions in the [releases page](https://github.com/pedroCX486/ngx-dumblog/releases/latest). Just unzip, customize your settings.json, hello-world.json and archives.json as you'd like and commit the files to your github.io repo!
 
 ## Creating and editing posts
 
@@ -30,7 +30,7 @@ First run `npm install` then run `npm start` and it should open automatically on
 
 ## Build
 
-Run `npm run build` to build it. You can also run `custom-build.bat` to build it and then have the index.html title changed after build. But **first** change the variable BLOGNAME inside the .bat file! I intend to add a tool in the future capable of reading the name from the configs.json and then updating the index.html after the build, instead of keeping this .bat file.
+Run `npm run build` to build it. You can also run `custom-build.bat` to build it and then have the index.html title changed after build. But **first** change the variable BLOGNAME inside the .bat file! I intend to add a tool in the future capable of reading the name from the settings.json and then updating the index.html after the build, instead of keeping this .bat file.
 
 ## Contributing
 

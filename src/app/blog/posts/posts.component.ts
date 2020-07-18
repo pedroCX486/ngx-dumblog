@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
-import { PostModel } from 'src/app/models/post.model';
+import { PostModel } from '@shared/models/post.model';
+import { HelperService } from '@shared/services/helper.service';
+import { SettingsModel } from '@shared/models/settings.model';
 
 @Component({
   selector: 'app-posts',
@@ -12,16 +12,16 @@ import { PostModel } from 'src/app/models/post.model';
 export class PostsComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
+  settings: SettingsModel;
 
   content: PostModel = new PostModel();
-  configs;
 
-  constructor(private http: HttpClient, private titleService: Title) { }
+  constructor(private titleService: Title, private helperService: HelperService) { }
 
-  ngOnInit() {
-    // Load configs, then load post
-    this.getJSON('./assets/configs.json').toPromise()
-      .then(data => this.configs = data)
+  ngOnInit(): void {
+    // Load settings, then load post
+    this.helperService.getJSON('./assets/settings.json').toPromise()
+      .then((data: SettingsModel) => this.settings = data)
       .then(() => {
         if (this.urlParams.get('post')) {
           this.loadPost();
@@ -29,14 +29,14 @@ export class PostsComponent implements OnInit {
       });
   }
 
-  loadPost() {
-    this.getJSON('./assets/posts/' + this.urlParams.get('post') + '.json').toPromise().then(data => {
+  loadPost(): void {
+    this.helperService.getJSON('./assets/posts/' + this.urlParams.get('post') + '.json').toPromise().then(data => {
       this.content = data;
-      this.content.timestamp = !!this.content.timestamp ? new Date(data.timestamp * 1000).toUTCString() : '';
-      this.content.editedTimestamp = !!this.content.editedTimestamp ? new Date(data.editedTimestamp * 1000).toUTCString() : '';
-      this.titleService.setTitle(this.content.postTitle + ' - ' + this.configs.blogTitle);
-    }).then(data => {
-      if (this.configs.enableDisqus) {
+      this.content.timestamp = !!this.content.timestamp ? this.helperService.parseTimestamp(data.timestamp) : '';
+      this.content.editedTimestamp = !!this.content.editedTimestamp ? this.helperService.parseTimestamp(data.editedTimestamp) : '';
+      this.titleService.setTitle(this.content.postTitle + ' - ' + this.settings.blogTitle);
+    }).then(() => {
+      if (this.settings.enableDisqus) {
         this.loadDisqus();
       }
     }).catch(error => {
@@ -45,11 +45,7 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  getJSON(arg): Observable<any> {
-    return this.http.get(arg);
-  }
-
-  loadDisqus() {
+  loadDisqus(): void {
     const body = document.body as HTMLDivElement;
     const script = document.createElement('script');
     script.innerHTML = '';

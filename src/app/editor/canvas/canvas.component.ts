@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { saveAs } from 'file-saver';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { PostModel } from 'src/app/models/post.model';
+import { PostModel } from '@shared/models/post.model';
+import { HelperService } from '@shared/services/helper.service';
 
 
 @Component({
@@ -19,28 +18,28 @@ export class CanvasComponent implements OnInit {
   filteredArchives = [];
   entryExists = false;
 
-  constructor(private http: HttpClient) {
+  constructor(public helperService: HelperService) {
     this.resetEditor();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadArchive();
   }
 
-  loadArchive() {
-    this.getJSON('archive').subscribe(data => {
+  loadArchive(): void {
+    this.helperService.getJSON('./assets/posts/archive.json').subscribe(data => {
       this.archives = data;
       this.filteredArchives = data;
     });
   }
 
-  loadPost(file) {
-    this.getJSON(file).toPromise().then(data => {
-      this.content = data;
-    }).catch(() => alert('Error loading post! Do you have an working connection?'));
+  loadPost(filename: string): void {
+    this.helperService.getJSON('./assets/posts/' + filename + '.json').toPromise()
+      .then(data => this.content = data)
+      .catch(() => alert('Error loading post!\nAre you connected to the internet?'));
   }
 
-  savePost(isDraft) {
+  savePost(isDraft: boolean): void {
     this.content.draft = isDraft;
 
     if (!this.content.postTitle) {
@@ -63,9 +62,9 @@ export class CanvasComponent implements OnInit {
       this.content.filename = this.parseFilename();
 
       if (!this.content.timestamp) {
-        this.content.timestamp = Math.round((new Date()).getTime() / 1000).toString();
+        this.content.timestamp = this.helperService.generateTimestamp();
       } else {
-        this.content.editedTimestamp = Math.round((new Date()).getTime() / 1000).toString();
+        this.content.editedTimestamp = this.helperService.generateTimestamp();
       }
 
       saveAs(new Blob(
@@ -77,7 +76,7 @@ export class CanvasComponent implements OnInit {
       if (!this.archives.some((post => post.postTitle === that.content.postTitle))) {
         this.archives.unshift({
           postTitle: this.content.postTitle,
-          timestamp: Math.round((new Date()).getTime() / 1000).toString(),
+          timestamp: this.helperService.generateTimestamp(),
           filename: this.parseFilename()
         });
 
@@ -93,7 +92,7 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  searchArhive(arg, clear?) {
+  searchArhive(arg: string, clear?: boolean): void {
     if (!!arg) {
       this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
     } else {
@@ -105,7 +104,7 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  loadFromFile(fromFile) {
+  loadFromFile(fromFile): void {
     const that = this;
     const file = fromFile.target.files[0];
     const reader = new FileReader();
@@ -141,15 +140,14 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  resetEditor() {
+  resetEditor(): void {
     this.content = new PostModel();
     this.content.postTitle = '';
     this.content.postContent = 'A new post.';
   }
 
-  parseFilename() {
+  parseFilename(): string {
     let filename = this.content.postTitle;
-
     filename = filename.replace(/[^a-zA-Z0-9_]+/gi, '-').toLowerCase();
 
     while (filename.endsWith('-')) {
@@ -167,15 +165,7 @@ export class CanvasComponent implements OnInit {
     return filename;
   }
 
-  parseTimestamp(timestamp) {
-    return new Date(timestamp * 1000).toUTCString();
-  }
-
-  getJSON(arg): Observable<any> {
-    return this.http.get('./assets/posts/' + arg + '.json');
-  }
-
-  editorReady(editor) {
+  editorReady(editor: any): void {
     editor.ui.getEditableElement().parentElement.insertBefore(
       editor.ui.view.toolbar.element,
       editor.ui.getEditableElement()

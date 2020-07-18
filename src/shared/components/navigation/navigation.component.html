@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand navigation-hover light" href="/">{{settings?.blogTitle}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link navigation-hover" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link navigation-hover" href="/?page=archives">Archives</a>
+      </li>
+      <li *ngIf="!isProduction" class="nav-item">
+        <a class="nav-link navigation-hover" href="/?page=editor">Editor</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link navigation-hover" href="http://github.com/pedroCX486/ngx-dumblog" target="_blank">
+          Powered by ngx-Dumblog
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

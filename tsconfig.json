@@ -3,6 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@shared/*": [
+        "src/shared/*"
+      ],
       "@env/*": [
         "src/environments/*"
       ]

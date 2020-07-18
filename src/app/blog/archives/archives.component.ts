@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { ArchiveModel } from 'src/app/models/archive.model';
+import { ArchiveModel } from '@shared/models/archive.model';
+import { HelperService } from '@shared/services/helper.service';
 
 @Component({
   selector: 'app-archives',
@@ -15,32 +13,24 @@ export class ArchivesComponent implements OnInit {
   archives: ArchiveModel[] = [];
   filteredArchives: ArchiveModel[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private helperService: HelperService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadArchive();
   }
 
-  getJSON(arg): Observable<any> {
-    return this.http.get('./assets/posts/' + arg + '.json');
-  }
-
-  loadArchive() {
-    this.getJSON('archive').subscribe(data => {
+  loadArchive(): void {
+    this.helperService.getJSON('./assets/posts/archive.json').subscribe(data => {
       this.archives = data;
       this.filteredArchives = data;
     });
   }
 
-  parseTimestamp(timestamp) {
-    if (!!timestamp) {
-      return '(' + new Date(timestamp * 1000).toUTCString() + ')';
-    } else {
-      return '';
-    }
+  parseTimestamp(timestamp: string): string {
+    return !!timestamp ? '(' + this.helperService.parseTimestamp(timestamp) + ')' : '';
   }
 
-  searchArhive(arg, clear?) {
+  searchArhive(arg: string, clear?: boolean): void {
     if (!!arg) {
       this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
     } else {

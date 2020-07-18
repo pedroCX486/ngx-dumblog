@@ -11,27 +11,27 @@
     </div>
 </div>
 
-<div class="container header-margin-top" *ngIf="!!configs">
+<div class="container header-margin-top" *ngIf="!!settings">
     <div class="jumbotron">
         <div class="profile-box">
             <div>
-                <img class="avatar" src="./assets/{{configs.avatar}}"><br>
+                <img class="avatar" src="./assets/{{settings.avatar}}"><br>
                 <div class="social-networks">
-                    <a *ngIf="!!configs.facebook" href="{{configs.facebook}}"><img src="./assets/facebook.png"></a>
-                    <a *ngIf="!!configs.twitter" href="{{configs.twitter}}"><img src="./assets/twitter.png"></a>
-                    <a *ngIf="!!configs.instagram" href="{{configs.instagram}}"><img src="./assets/instagram.png"></a>
-                    <a *ngIf="!!configs.linkedin" href="{{configs.linkedin}}"><img src="./assets/linkedin.png"></a>
-                    <a *ngIf="!!configs.youtube" href="{{configs.youtube}}"><img src="./assets/youtube.png"></a>
+                    <a *ngIf="!!settings.facebook" href="{{settings.facebook}}"><img src="./assets/social/facebook.png"></a>
+                    <a *ngIf="!!settings.twitter" href="{{settings.twitter}}"><img src="./assets/social/twitter.png"></a>
+                    <a *ngIf="!!settings.instagram" href="{{settings.instagram}}"><img src="./assets/social/instagram.png"></a>
+                    <a *ngIf="!!settings.linkedin" href="{{settings.linkedin}}"><img src="./assets/social/linkedin.png"></a>
+                    <a *ngIf="!!settings.youtube" href="{{settings.youtube}}"><img src="./assets/social/youtube.png"></a>
                 </div>
             </div>
             <div>
-                <h1 class="display-4">{{configs.name}}</h1>
-                <p class="lead">{{configs.bio}}</p>
+                <h1 class="display-4">{{settings.name}}</h1>
+                <p class="lead">{{settings.bio}}</p>
             </div>
         </div>
     </div>
 </div>
-<div class="comments" id="disqus_thread" *ngIf="configs?.enableDisqus"></div>
+<div class="comments" id="disqus_thread" *ngIf="settings?.enableDisqus"></div>
 
 <div class="margin-y">
     <a href="/"><button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button></a>
