@@ -6,13 +6,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
+      <li class="nav-item" [class.active]="isCurrentPage('/blog')">
         <a class="nav-link navigation-hover" href="/">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" [class.active]="isCurrentPage('/blog/archives')">
         <a class="nav-link navigation-hover" href="/?page=archives">Archives</a>
       </li>
-      <li *ngIf="!isProduction" class="nav-item">
+      <li *ngIf="!isProduction" class="nav-item" [class.active]="isCurrentPage('/editor')">
         <a class="nav-link navigation-hover" href="/?page=editor">Editor</a>
       </li>
     </ul>
