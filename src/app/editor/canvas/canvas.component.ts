@@ -13,6 +13,9 @@ import { HelperService } from '@shared/services/helper.service';
 export class CanvasComponent implements OnInit {
 
   Editor = DecoupledEditor;
+  public editorConfig = {
+    placeholder: 'Your text'
+}
   content: PostModel = new PostModel();
   archives = [];
   filteredArchives = [];
@@ -143,7 +146,7 @@ export class CanvasComponent implements OnInit {
   resetEditor(): void {
     this.content = new PostModel();
     this.content.postTitle = '';
-    this.content.postContent = 'A new post.';
+    this.content.postContent = '';
   }
 
   parseFilename(): string {

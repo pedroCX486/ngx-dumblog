@@ -1,41 +1,69 @@
 *:not(.fade) {
-    -webkit-animation: fadein 0.5s;
-    animation: fadein 0.5s;
-  }
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
 
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 // Misc.
 .rounded-edges {
-    border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 //Menu Hover
-.mouse-hover { cursor: pointer; }
-.mouse-hover:hover { background-color: #f5f5f5; }
+.mouse-hover {
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+.mouse-hover:hover {
+  background-color: #f5f5f5;
+  transition: ease-in-out 0.3s;
+}
 
 //Link Hover
-.navigation-hover { cursor: pointer; }
+.navigation-hover {
+  cursor: pointer;
+}
 
 //Margin
-.margins { margin: 1rem; }
-.header-margin-top {margin-top: 2rem !important; }
-.margins-sides { width: 40%; margin: 0 auto; }
-.margin-top {margin-top: 0.5rem !important; }
-.margin-y { margin-top: 2rem; margin-bottom: 3rem; }
+.margins {
+  margin: 1rem;
+}
+.header-margin-top {
+  margin-top: 2rem !important;
+}
+.margins-sides {
+  width: 40%;
+  margin: 0 auto;
+}
+.margin-top {
+  margin-top: 0.5rem !important;
+}
+.margin-y {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
 
 //Timestamp
-.timestamp { font-size: 12px; margin-top: 0.3rem; }
+.timestamp {
+  font-size: 12px;
+  margin-top: 0.3rem;
+  color: #212529;
+}
 
 // Card: No borders, Round heading border
 .card-header {
-    border-bottom: none;
-    border-radius: 5px;
+  border-bottom: none;
+  border-radius: 5px;
 }
 
 .card {
-    border: none;
+  border: none;
 }

@@ -1,7 +1,9 @@
 <div class="margins">
-  <input [(ngModel)]="content.postTitle" type="text" class="form-control no-border" placeholder="Post title">
+  <input [(ngModel)]="content.postTitle" type="text" class="form-control no-border" placeholder="Your title">
 
-  <ckeditor [(ngModel)]="content.postContent" [editor]="Editor" (ready)="editorReady($event)"></ckeditor>
+  <ckeditor [(ngModel)]="content.postContent" [editor]="Editor" [config]="editorConfig" (ready)="editorReady($event)">
+  </ckeditor>
+
   <div class="timestamp text-muted" *ngIf="!!content.timestamp">
     <strong>Created on</strong>&nbsp;{{helperService.parseTimestamp(content.timestamp)}}
   </div>

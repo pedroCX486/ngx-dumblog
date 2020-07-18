@@ -50,6 +50,7 @@
     font-size: 1rem;
     color: #17a2b8;
     font-weight: 400;
+    transition: ease-in-out 0.15s;
 }
 
 #file-input:focus + label,
@@ -57,6 +58,7 @@
     border-color: #17a2b8;
     background-color: #17a2b8;
     color: white;
+    transition: ease-in-out 0.15s;
 }
 
 label {
