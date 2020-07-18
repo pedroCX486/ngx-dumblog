@@ -2,7 +2,7 @@
 
 Recently I decided to 'fork' dumblog into another blogging app, that is published under the 'ngx-mkdumblog' name, this version is powered by a Markdown editor and renderer, that allows you to write your posts in Markdown. It's currently available [in this repo](https://github.com/pedroCX486/ngx-mkdumblog).
 
-I don't currently plan on deprecating this version (ngx-dumblog), as some of you may not be used/like markdown to write long texts, but as always it'll be open for contributions, since development on this version will probably slow down and some improvements may not be backported from mkdumblog.
+I don't plan on deprecating this version (ngx-dumblog), as some of you may not be used/like markdown to write long texts.
 
 **Note:** ngx-mkdumblog and ngx-dumblog aren't compatible with each other!
 
