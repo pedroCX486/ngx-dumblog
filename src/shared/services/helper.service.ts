@@ -7,11 +7,11 @@ export class HelperService {
   constructor(private httpClient: HttpClient) { }
 
   getSettings(): Observable<any> {
-    return this.httpClient.get('./assets/settings.json');
+    return this.httpClient.get('./assets/settings.json?when=' + this.generateTimestamp());
   }
 
   getJSON(arg: string): Observable<any> {
-    return this.httpClient.get(arg);
+    return this.httpClient.get(arg + '?when=' +  + this.generateTimestamp());
   }
 
   generateTimestamp(): string {
