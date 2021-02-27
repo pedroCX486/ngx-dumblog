@@ -1,43 +1,49 @@
 <div class="card margins">
-    <h4 class="card-header">
-        <a href="/?post={{content.filename}}">{{content.postTitle}}</a>
-        <div class="timestamp text-muted" *ngIf="content.draft"><strong>Draft: Post not published.</strong></div>
+  <h4 class="card-header">
+    <a href="/?post={{content.filename}}">{{content.postTitle}}</a>
+    <div class="timestamp text-muted" *ngIf="content.draft"><strong>Draft: Post not published.</strong></div>
 
-        <div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Posted on</strong>&nbsp;{{content.timestamp}}</div>
-        <div class="timestamp text-muted" *ngIf="!!content.editedTimestamp"><strong>Edited on</strong>&nbsp;{{content.editedTimestamp}}</div>
-    </h4>
-    <div class="card-body">
-        <p class="card-text" [innerHTML]="content.postContent"></p>
+    <div class="timestamp text-muted" *ngIf="!!content.timestamp"><strong>Posted on</strong>&nbsp;{{content.timestamp}}
     </div>
+    <div class="timestamp text-muted" *ngIf="!!content.editedTimestamp"><strong>Edited
+        on</strong>&nbsp;{{content.editedTimestamp}}</div>
+  </h4>
+  <div class="card-body">
+    <p class="card-text" [innerHTML]="content.postContent"></p>
+  </div>
 </div>
 
 <div class="container header-margin-top" *ngIf="!!settings">
-    <div class="jumbotron">
-        <div class="profile-box">
-            <div>
-                <img class="avatar" src="./assets/{{settings.yourAvatar}}"><br>
-                <div class="social-networks">
-                    <a *ngIf="!!settings.facebook" href="{{settings.facebook}}"><img src="./assets/social/facebook.png"></a>
-                    <a *ngIf="!!settings.twitter" href="{{settings.twitter}}"><img src="./assets/social/twitter.png"></a>
-                    <a *ngIf="!!settings.instagram" href="{{settings.instagram}}"><img src="./assets/social/instagram.png"></a>
-                    <a *ngIf="!!settings.linkedin" href="{{settings.linkedin}}"><img src="./assets/social/linkedin.png"></a>
-                    <a *ngIf="!!settings.youtube" href="{{settings.youtube}}"><img src="./assets/social/youtube.png"></a>
-                </div>
-            </div>
-            <div>
-                <h1 class="display-4">{{settings.yourName}}</h1>
-                <p class="lead">{{settings.yourBio}}</p>
-            </div>
+  <div class="jumbotron">
+    <div class="profile-box">
+      <div>
+        <img class="avatar" src="./assets/{{settings.yourAvatar}}"><br>
+        <div class="social-networks">
+          <a *ngIf="!!settings.facebook" href="{{settings.facebook}}"><img src="./assets/social/facebook.png"></a>
+          <a *ngIf="!!settings.twitter" href="{{settings.twitter}}"><img src="./assets/social/twitter.png"></a>
+          <a *ngIf="!!settings.instagram" href="{{settings.instagram}}"><img src="./assets/social/instagram.png"></a>
+          <a *ngIf="!!settings.linkedin" href="{{settings.linkedin}}"><img src="./assets/social/linkedin.png"></a>
+          <a *ngIf="!!settings.youtube" href="{{settings.youtube}}"><img src="./assets/social/youtube.png"></a>
+          <div *ngIf="!!settings.displayEmailInBio" class="bio-email lead">{{settings?.yourEmail}}</div>
         </div>
+      </div>
+      <div>
+        <h1 class="display-4">{{settings.yourName}}</h1>
+        <p class="lead">{{settings.yourBio}}</p>
+      </div>
     </div>
+  </div>
 </div>
 <div class="comments" id="disqus_thread" *ngIf="settings?.enableDisqus"></div>
+<div class="mail-comments rounded-edges" *ngIf="settings?.enableMailMeAt">
+  If you want to leave a comment feel free to <a [attr.href]="'mailto:' + settings?.yourEmail">send me an email</a>.
+</div>
 
 <div class="margin-y">
-    <a href="/" class="text-decoration-none">
-        <button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button>
-    </a>
-    <a href="/?page=archives" class="text-decoration-none">
-        <button type="button" class="margin-top margins-sides btn btn-primary btn-block">Go to the Archives</button>
-    </a>
+  <a href="/" class="text-decoration-none">
+    <button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button>
+  </a>
+  <a href="/?page=archives" class="text-decoration-none">
+    <button type="button" class="margin-top margins-sides btn btn-primary btn-block">Go to the Archives</button>
+  </a>
 </div>

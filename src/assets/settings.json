@@ -1,13 +1,16 @@
 {
-    "blogTitle": "My New Blog",
-    "yourAvatar": "avatar.png",
-    "yourName": "Your Name",
-    "yourBio": "Your Bio. Who are you? ;)",
-    "facebook": "",
-    "twitter": "http://twitter.com",
-    "instagram": "http://instagram.com",
-    "linkedin": "http://linkedin.com",
-    "youtube": "http://youtube.com",
-    "enableDisqus": false,
-    "maxPosts": 5
+  "blogTitle": "My New Blog",
+  "yourAvatar": "avatar.png",
+  "yourName": "Your Name",
+  "yourBio": "Your Bio. Who are you? ;)",
+  "yourEmail": "foo@bar.baz",
+  "displayEmailInBio": false,
+  "facebook": "",
+  "twitter": "http://twitter.com",
+  "instagram": "http://instagram.com",
+  "linkedin": "http://linkedin.com",
+  "youtube": "http://youtube.com",
+  "enableDisqus": false,
+  "enableMailMeAt": true,
+  "maxPosts": 5
 }
