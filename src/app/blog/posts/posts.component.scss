@@ -1,25 +1,40 @@
 .jumbotron {
   padding: 2em 2rem !important;
 }
-.avatar {
-  max-width: 150px;
-  max-height: 150px;
-  padding-right: 1rem;
-  border-radius: 100%;
-  overflow: hidden;
-}
-
-.avatar-image {
-  max-width: 150px;
-  max-height: 150px;
-}
 
 .profile-box {
   display: flex !important;
   text-align: center;
 }
+
+.avatar {
+  max-width: 125px;
+  max-height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-image {
+  max-width: 125px;
+  max-height: 125px;
+}
+
+.bio-text {
+  padding-left: 1rem;
+  text-align: left;
+}
+
 .social-networks {
-  padding-right: 1rem;
+  position: absolute;
+  margin-top: 0.5rem;
+}
+
+.social-icon {
+  transition: all 0.1s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
 }
 
 .bio-email {
