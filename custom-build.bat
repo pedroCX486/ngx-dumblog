@@ -1,4 +1,6 @@
-set BLOGNAME=Custom Title
+@echo off
+cls
+set /p BLOGNAME="Title of your blog: "
 echo off
 cls
 echo Compiling ngx-Dumblog...
