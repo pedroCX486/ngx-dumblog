@@ -5,8 +5,15 @@
   max-width: 150px;
   max-height: 150px;
   padding-right: 1rem;
-  border-radius: 50%;
+  border-radius: 100%;
+  overflow: hidden;
 }
+
+.avatar-image {
+  max-width: 150px;
+  max-height: 150px;
+}
+
 .profile-box {
   display: flex !important;
   text-align: center;
