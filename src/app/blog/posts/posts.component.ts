@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { PostModel } from '@shared/models/post.model';
+import { IPost } from '@shared/interfaces/post.interface';
 import { HelperService } from '@shared/services/helper.service';
-import { SettingsModel } from '@shared/models/settings.model';
+import { ISettings } from '@shared/interfaces/settings.interface';
 
 @Component({
   selector: 'app-posts',
@@ -12,36 +12,42 @@ import { SettingsModel } from '@shared/models/settings.model';
 export class PostsComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
-  settings: SettingsModel;
+  settings!: ISettings;
 
-  content: PostModel = new PostModel();
+  content!: IPost;
 
   constructor(private titleService: Title, private helperService: HelperService) { }
 
   ngOnInit(): void {
     // Load settings, then load post
-    this.helperService.getJSON('./assets/settings.json').toPromise()
-      .then((data: SettingsModel) => this.settings = data)
-      .then(() => {
+    this.helperService.getSettings().subscribe({
+      next: (data: ISettings) => {
+        this.settings = data
+      }, complete: () => {
         if (this.urlParams.get('post')) {
           this.loadPost();
         }
-      });
+      }
+    });
   }
 
   loadPost(): void {
-    this.helperService.getJSON('./assets/posts/' + this.urlParams.get('post') + '.json').toPromise().then(data => {
-      this.content = data;
-      this.content.timestamp = !!this.content.timestamp ? this.helperService.parseTimestamp(data.timestamp) : '';
-      this.content.editedTimestamp = !!this.content.editedTimestamp ? this.helperService.parseTimestamp(data.editedTimestamp) : '';
-      this.titleService.setTitle(this.content.postTitle + ' - ' + this.settings.blogTitle);
-    }).then(() => {
-      if (this.settings.enableDisqus) {
-        this.loadDisqus();
+    this.helperService.getPost(this.urlParams.get('post')!).subscribe({
+      next: (data: IPost) => {
+        this.content = data;
+        this.content.timestamp = !!this.content.timestamp ? this.helperService.parseTimestamp(data.timestamp) : '';
+        this.content.editedTimestamp = !!this.content.editedTimestamp ? this.helperService.parseTimestamp(data.editedTimestamp) : '';
+        this.titleService.setTitle(this.content.postTitle + ' - ' + this.settings.blogTitle);
+      },
+      error: error => {
+        this.content.postTitle = 'Whoops!';
+        this.content.postContent = 'We couldn\'t load this post! <strong>(' + error.status + ')</strong>';
+      },
+      complete: () => {
+        if (this.settings.enableDisqus) {
+          this.loadDisqus();
+        }
       }
-    }).catch(error => {
-      this.content.postTitle = 'Whoops!';
-      this.content.postContent = 'We couldn\'t load this post! <strong>(' + error.status + ')</strong>';
     });
   }
 

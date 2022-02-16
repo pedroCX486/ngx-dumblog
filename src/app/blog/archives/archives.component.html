@@ -1,31 +1,32 @@
 <div class="container header-margin-top">
-    <div class="jumbotron">
-        <h1 class="display-4">Archives</h1>
-        <p class="lead">Here you can find all the blog's posts.</p>
-    </div>
+  <div class="jumbotron">
+    <h1 class="display-4">Archives</h1>
+    <p class="lead">Here you can find all the blog's posts.</p>
+  </div>
 </div>
 
 <div class="input-group mb-3 search-box">
-    <input type="text" class="form-control" id="search" placeholder="Search by title"
-        (keyup)="searchArhive($event.target.value)">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchArhive(null, true);">
-            Clear
-        </button>
-    </div>
+  <input type="text" class="form-control" id="search" placeholder="Search by title"
+    (keyup)="searchArhive($event.target)">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="searchArhive('', true);">
+      Clear
+    </button>
+  </div>
 </div>
 
 <div class="card margins" *ngIf="filteredArchives.length > 0">
-    <ul class="list-group list-group-flush">
-        <ng-container *ngFor="let archive of filteredArchives">
-            <a href="/?post={{archive.filename}}" class="text-decoration-none">
-                <li class="list-group-item mouse-hover rounded-edges">
-                    {{archive.postTitle}}
-                    <div class="timestamp" *ngIf="!!archive.timestamp">{{parseTimestamp(archive.timestamp)}}</div>
-                </li>
-            </a>
-        </ng-container>
-    </ul>
+  <ul class="list-group list-group-flush">
+    <ng-container *ngFor="let archive of filteredArchives">
+      <a href="/?post={{archive.filename}}" class="text-decoration-none">
+        <li class="list-group-item mouse-hover rounded-edges">
+          {{archive.postTitle}}
+          <div class="timestamp" *ngIf="!!archive.timestamp">{{parseTimestamp(archive.timestamp)}}</div>
+        </li>
+      </a>
+    </ng-container>
+  </ul>
 </div>
 
-<a href="/" class="text-decoration-none"><button type="button" class="margins-sides margin-y btn btn-primary btn-block">Go to Home</button></a>
+<a href="/" class="text-decoration-none"><button type="button"
+    class="margins-sides margin-y btn btn-primary btn-block">Go to Home</button></a>

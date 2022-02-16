@@ -1,20 +1,20 @@
 <div class="card margins" *ngFor="let content of contents">
-    <h4 class="card-header">
-        <a href="/?post={{content.filename}}">{{content.postTitle}}</a>
-        <div class="timestamp text-muted" *ngIf="!!content.timestamp">
-            <strong>Posted on</strong>&nbsp;{{helperService.parseTimestamp(content.timestamp)}}
-        </div>
-        <div class="timestamp text-muted" *ngIf="!!content.editedTimestamp">
-            <strong>Edited on</strong>&nbsp;{{helperService.parseTimestamp(content.editedTimestamp)}}
-        </div>
-    </h4>
-    <div class="card-body">
-        <p class="card-text" [innerHTML]="content.postContent"></p>
+  <h4 class="card-header">
+    <a href="/?post={{content?.filename}}">{{content?.postTitle}}</a>
+    <div class="timestamp text-muted" *ngIf="!!content.timestamp">
+      <strong>Posted on</strong>&nbsp;{{helperService.parseTimestamp(content.timestamp)}}
     </div>
+    <div class="timestamp text-muted" *ngIf="!!content.editedTimestamp">
+      <strong>Edited on</strong>&nbsp;{{helperService.parseTimestamp(content.editedTimestamp)}}
+    </div>
+  </h4>
+  <div class="card-body">
+    <p class="card-text" [innerHTML]="content?.postContent"></p>
+  </div>
 </div>
 
 <a href="/?page=archives" class="text-decoration-none">
-    <button type="button" class="text-center margins-sides margin-y btn btn-primary btn-block">
-        Want to read more? Check the archives.
-    </button>
+  <button type="button" class="text-center margins-sides margin-y btn btn-primary btn-block">
+    Want to read more? Check the archives.
+  </button>
 </a>

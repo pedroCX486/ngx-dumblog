@@ -7,11 +7,15 @@ export class HelperService {
   constructor(private httpClient: HttpClient) { }
 
   getSettings(): Observable<any> {
-    return this.httpClient.get('./assets/settings.json?when=' + this.generateTimestamp());
+    return this.httpClient.get('./assets/settings.json?cache=' + this.generateTimestamp());
   }
 
-  getJSON(arg: string): Observable<any> {
-    return this.httpClient.get(arg + '?when=' +  + this.generateTimestamp());
+  getArchive(): Observable<any> {
+    return this.httpClient.get('./assets/posts/archive.json?cache=' + this.generateTimestamp());
+  }
+
+  getPost(filename: string): Observable<any> {
+    return this.httpClient.get('./assets/posts/' + filename + '.json' + '?cache=' + this.generateTimestamp());
   }
 
   generateTimestamp(): string {

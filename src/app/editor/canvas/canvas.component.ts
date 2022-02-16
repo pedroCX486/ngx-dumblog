@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { saveAs } from 'file-saver';
-import { PostModel } from '@shared/models/post.model';
+import { IPost } from '@shared/interfaces/post.interface';
 import { HelperService } from '@shared/services/helper.service';
-
+import { IArchive } from '@shared/interfaces/archive.interface';
 
 @Component({
   selector: 'app-canvas',
@@ -14,10 +14,10 @@ export class CanvasComponent implements OnInit {
 
   Editor = DecoupledEditor;
   editorConfig = { placeholder: 'Your text' };
-  content: PostModel = new PostModel();
+  content!: IPost;
 
-  archives = [];
-  filteredArchives = [];
+  archives: IArchive[] = [];
+  filteredArchives: IArchive[] = [];
   entryExists = false;
 
   constructor(public helperService: HelperService) {
@@ -29,16 +29,21 @@ export class CanvasComponent implements OnInit {
   }
 
   loadArchive(): void {
-    this.helperService.getJSON('./assets/posts/archive.json').subscribe(data => {
+    this.helperService.getArchive().subscribe(data => {
       this.archives = data;
       this.filteredArchives = data;
     });
   }
 
   loadPost(filename: string): void {
-    this.helperService.getJSON('./assets/posts/' + filename + '.json').toPromise()
-      .then(data => this.content = data)
-      .catch(() => alert('Error loading post!\nAre you connected to the internet?'));
+    this.helperService.getPost(filename).subscribe({
+      next: data => {
+        this.content = data;
+      },
+      error: error => {
+        alert('Error loading post!\nAre you connected to the internet?');
+      }
+    });
   }
 
   savePost(isDraft: boolean): void {
@@ -94,9 +99,9 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  searchArhive(arg: string, clear?: boolean): void {
-    if (!!arg) {
-      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
+  searchArhive(eventTarget: any, clear?: boolean): void {
+    if (!!eventTarget) {
+      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(eventTarget.value.toLowerCase()));
     } else {
       this.filteredArchives = this.archives;
     }
@@ -106,7 +111,7 @@ export class CanvasComponent implements OnInit {
     }
   }
 
-  loadFromFile(fromFile): void {
+  loadFromFile(fromFile: any): void {
     const that = this;
     const file = fromFile.target.files[0];
     const reader = new FileReader();
@@ -117,7 +122,7 @@ export class CanvasComponent implements OnInit {
     }
 
     reader.onload = (event => {
-      const contents = (event.target as FileReader).result;
+      const contents: any = (event.target as FileReader).result;
 
       // I know this is crazy but it works.
       try {
@@ -133,7 +138,7 @@ export class CanvasComponent implements OnInit {
         error = true;
       }
 
-      document.getElementById('dismiss').click();
+      (document.getElementById('dismiss') as HTMLElement).click();
       (document.getElementById('file-input') as HTMLInputElement).value = '';
     });
 
@@ -143,7 +148,7 @@ export class CanvasComponent implements OnInit {
   }
 
   resetEditor(): void {
-    this.content = new PostModel();
+    this.content = <IPost>{};
     this.content.postTitle = '';
     this.content.postContent = '';
   }

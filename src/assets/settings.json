@@ -12,5 +12,6 @@
   "youtube": "http://youtube.com",
   "enableDisqus": false,
   "enableMailMeAt": true,
-  "maxPosts": 5
+  "maxPosts": 5,
+  "showPoweredBy": true
 }

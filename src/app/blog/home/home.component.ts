@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingsModel } from '@shared/models/settings.model';
-import { ArchiveModel } from '@shared/models/archive.model';
-import { PostModel } from '@shared/models/post.model';
+import { ISettings } from '@shared/interfaces/settings.interface';
+import { IArchive } from '@shared/interfaces/archive.interface';
+import { IPost } from '@shared/interfaces/post.interface';
 import { HelperService } from '@shared/services/helper.service';
 
 @Component({
@@ -11,9 +11,9 @@ import { HelperService } from '@shared/services/helper.service';
 })
 export class HomeComponent implements OnInit {
 
-  contents: PostModel[] = [];
-  archives: ArchiveModel[] = [];
-  settings: SettingsModel;
+  contents: IPost[] = [];
+  archives: IArchive[] = [];
+  settings!: ISettings;
 
   postsLoaded = 0;
 
@@ -24,33 +24,47 @@ export class HomeComponent implements OnInit {
   }
 
   loadSettings(): void {
-    this.helperService.getJSON('./assets/settings.json').toPromise().then((data) => {
-      this.settings = data;
-    }).then(() => this.loadArchive());
+    this.helperService.getSettings().subscribe({
+      next: data => {
+        this.settings = data;
+      },
+      complete: () => {
+        this.loadArchive();
+      }
+    });
   }
 
   loadArchive(): void {
-    this.helperService.getJSON('./assets/posts/archive.json').toPromise().then(data => {
-      this.archives = data;
-      this.settings.maxPosts = this.archives.length < this.settings.maxPosts ? this.archives.length : this.settings.maxPosts;
-    }).then(() => this.loadPosts());
+    this.helperService.getArchive().subscribe({
+      next: data => {
+        this.archives = data;
+        this.settings.maxPosts = this.archives.length < this.settings.maxPosts ? this.archives.length : this.settings.maxPosts;
+      },
+      complete: () => {
+        this.loadPosts();
+      }
+    });
   }
 
   loadPosts(): void {
     if (this.postsLoaded < this.settings.maxPosts) {
-      this.helperService.getJSON('./assets/posts/' + this.archives[this.postsLoaded].filename + '.json').toPromise().then(data => {
-        this.contents.push(data);
-      }).then(() => {
-        this.continue();
-      }).catch(error => {
-        this.continue(error);
+      this.helperService.getPost(this.archives[this.postsLoaded].filename).subscribe({
+        next: (data: IPost) => {
+          this.contents.push(data);
+        },
+        error: error => {
+          this.continue(error);
+        },
+        complete: () => {
+          this.continue();
+        }
       });
     }
   }
 
   continue(error?: any): void {
     if (!!error) {
-      const errorPost = new PostModel();
+      const errorPost = <IPost>{};
       errorPost.postTitle = 'Aw shucks!';
       errorPost.postContent = 'We couldn\'t load this post! Sorry! <strong>(' + error.status + ' ' + error.statusText + ')</strong>';
       errorPost.filename = 'not-found';

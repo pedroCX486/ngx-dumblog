@@ -1,3 +1,17 @@
-.light {
+nav {
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(12px);
+  backface-visibility: hidden;
+  width: 100vw;
+  z-index: 3;
+}
+
+.nav-padding {
+  min-height: 3.5rem;
+}
+
+.title-light {
   color: #fff !important;
 }

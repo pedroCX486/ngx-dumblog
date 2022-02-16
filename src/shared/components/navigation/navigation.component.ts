@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '@env/environment';
-import { SettingsModel } from '@shared/models/settings.model';
+import { ISettings } from '@shared/interfaces/settings.interface';
 import { HelperService } from '@shared/services/helper.service';
 import { Router } from '@angular/router';
 
@@ -13,14 +13,19 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
 
   isProduction = environment.production;
-  settings: SettingsModel;
+  settings!: ISettings;
 
   constructor(private helperService: HelperService, private titleService: Title, private router: Router) { }
 
   ngOnInit(): void {
-    this.helperService.getSettings().toPromise()
-      .then((data: SettingsModel) => this.settings = data)
-      .then(() => this.titleService.setTitle(this.settings.blogTitle));
+    this.helperService.getSettings().subscribe({
+      next: (data: ISettings) => {
+        this.settings = data;
+      },
+      complete: () => {
+        this.titleService.setTitle(this.settings.blogTitle);
+      }
+    });
   }
 
   isCurrentPage(url: string): boolean {

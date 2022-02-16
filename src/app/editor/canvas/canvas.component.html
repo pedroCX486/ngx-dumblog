@@ -52,10 +52,10 @@
       <div class="modal-body">
         <div class="input-group mb-3">
           <input type="text" class="form-control" id="search" placeholder="Search by title"
-            (keyup)="searchArhive($event.target.value)">
+            (keyup)="searchArhive($event?.target)">
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2"
-              (click)="searchArhive(null, true);">Clear</button>
+              (click)="searchArhive('', true);">Clear</button>
           </div>
         </div>
         <div class="scrollable">

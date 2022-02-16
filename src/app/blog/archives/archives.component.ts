@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArchiveModel } from '@shared/models/archive.model';
+import { IArchive } from '@shared/interfaces/archive.interface';
 import { HelperService } from '@shared/services/helper.service';
 
 @Component({
@@ -10,8 +10,8 @@ import { HelperService } from '@shared/services/helper.service';
 export class ArchivesComponent implements OnInit {
 
   urlParams = new URLSearchParams(window.location.search);
-  archives: ArchiveModel[] = [];
-  filteredArchives: ArchiveModel[] = [];
+  archives: IArchive[] = [];
+  filteredArchives: IArchive[] = [];
 
   constructor(private helperService: HelperService) { }
 
@@ -20,7 +20,7 @@ export class ArchivesComponent implements OnInit {
   }
 
   loadArchive(): void {
-    this.helperService.getJSON('./assets/posts/archive.json').subscribe(data => {
+    this.helperService.getArchive().subscribe(data => {
       this.archives = data;
       this.filteredArchives = data;
     });
@@ -30,9 +30,9 @@ export class ArchivesComponent implements OnInit {
     return !!timestamp ? '(' + this.helperService.parseTimestamp(timestamp) + ')' : '';
   }
 
-  searchArhive(arg: string, clear?: boolean): void {
-    if (!!arg) {
-      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(arg.toLowerCase()));
+  searchArhive(eventTarget: any, clear?: boolean): void {
+    if (!!eventTarget) {
+      this.filteredArchives = this.archives.filter(entry => entry.postTitle.toLowerCase().includes(eventTarget.value.toLowerCase()));
     } else {
       this.filteredArchives = this.archives;
     }

@@ -1,5 +1,6 @@
+<div class="nav-padding"></div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand navigation-hover light" href="/">{{settings?.blogTitle}}</a>
+  <a class="navbar-brand navigation-hover title-light" href="/">{{settings?.blogTitle}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,12 +14,12 @@
         <a class="nav-link navigation-hover" href="/?page=archives">Archives</a>
       </li>
       <li *ngIf="!isProduction" class="nav-item" [class.active]="isCurrentPage('/editor')">
-        <a class="nav-link navigation-hover" href="/?page=editor">Editor</a>
+        <a class="nav-link navigation-hover" href="/?page=editor" title="The web editor is only shown here during debug mode.">Editor</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link navigation-hover" href="http://github.com/pedroCX486/ngx-dumblog" target="_blank">
+        <a *ngIf="settings?.showPoweredBy" class="nav-link navigation-hover" href="http://github.com/pedroCX486/ngx-dumblog" target="_blank">
           Powered by ngx-Dumblog
         </a>
       </li>

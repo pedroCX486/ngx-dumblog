@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
 const routes: Routes = [
   {
     path: 'blog',
-    loadChildren: './blog/blog.module#BlogModule'
+    loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule)
   },
   {
     path: 'editor',
-    loadChildren: './editor/editor.module#EditorModule'
+    loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule)
   }
 ];
 

@@ -1,4 +1,4 @@
-export class SettingsModel {
+export interface ISettings {
   blogTitle: string;
   yourAvatar: string;
   yourName: string;
@@ -13,4 +13,5 @@ export class SettingsModel {
   enableDisqus: boolean;
   enableMailMeAt: boolean;
   maxPosts: number;
+  showPoweredBy: boolean;
 }
