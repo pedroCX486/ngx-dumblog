@@ -1,11 +1,3 @@
-### Markdown Fork (ngx-mkdumblog)
-
-The 'ngx-mkdumblog', is a version powered by a Markdown editor and renderer, that allows you to write your posts in Markdown. It's currently available [in this repo](https://github.com/pedroCX486/ngx-mkdumblog).
-
-**Note:** ngx-mkdumblog and ngx-dumblog posts aren't compatible with each other!
-
-------------------
-
 # ngx-Dumblog
 
 The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! I always thought that the idea of having a local editor was neat, but hard to keep developing native versions to all major platforms. So now you have an full-fledged editor online (it can't save the files to your repo, you have to commit the files it'll provide), customization on the settings.json and a few things more.
