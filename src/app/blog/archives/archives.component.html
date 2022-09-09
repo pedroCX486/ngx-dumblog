@@ -18,7 +18,7 @@
 <div class="card margins" *ngIf="filteredArchives.length > 0">
   <ul class="list-group list-group-flush">
     <ng-container *ngFor="let archive of filteredArchives">
-      <a href="/?post={{archive.filename}}" class="text-decoration-none">
+      <a href="./?post={{archive.filename}}" class="text-decoration-none">
         <li class="list-group-item mouse-hover rounded-edges">
           {{archive.postTitle}}
           <div class="timestamp" *ngIf="!!archive.timestamp">{{parseTimestamp(archive.timestamp)}}</div>
@@ -28,5 +28,5 @@
   </ul>
 </div>
 
-<a href="/" class="text-decoration-none"><button type="button"
+<a href="./" class="text-decoration-none"><button type="button"
     class="margins-sides margin-y btn btn-primary btn-block">Go to Home</button></a>

@@ -1,6 +1,6 @@
 # ngx-Dumblog
 
-The new version of [Dumblog](https://github.com/pedroCX486/dumblog), now fully written in Angular! I always thought that the idea of having a local editor was neat, but hard to keep developing native versions to all major platforms. So now you have an full-fledged editor online (it can't save the files to your repo, you have to commit the files it'll provide), customization on the settings.json and a few things more.
+A simple and dumb blogging platform with an editor in-browser (you need to commit/upload your files after editing them). Made to be an alternative to Jekyll.
 
 ## Customizations
 

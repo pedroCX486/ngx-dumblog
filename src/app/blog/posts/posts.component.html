@@ -1,6 +1,6 @@
 <div class="card margins">
   <h4 class="card-header">
-    <a href="/?post={{content?.filename}}">{{content?.postTitle}}</a>
+    <a href="./?post={{content?.filename}}">{{content?.postTitle}}</a>
     <div class="timestamp text-muted" *ngIf="content?.draft"><strong>Draft: Post not published.</strong></div>
 
     <div class="timestamp text-muted" *ngIf="!!content?.timestamp"><strong>Posted on</strong>&nbsp;{{content?.timestamp}}
@@ -17,22 +17,22 @@
   <div class="jumbotron">
     <div class="profile-box">
       <div>
-        <div class="avatar"><img class="avatar-image" src="./assets/{{settings?.yourAvatar}}"></div><br>
+        <div class="avatar"><img alt="User Avatar" class="avatar-image" src="./assets/{{settings?.yourAvatar}}"></div><br>
         <div class="social-networks">
           <a *ngIf="!!settings?.facebook" href="{{settings.facebook}}">
-            <img class="social-icon" src="./assets/social/facebook.png">
+            <img alt="Facebook" class="social-icon" src="./assets/social/facebook.png">
           </a>
           <a *ngIf="!!settings?.twitter" href="{{settings.twitter}}">
-            <img class="social-icon" src="./assets/social/twitter.png">
+            <img alt="Twitter" class="social-icon" src="./assets/social/twitter.png">
           </a>
           <a *ngIf="!!settings?.instagram" href="{{settings.instagram}}">
-            <img class="social-icon" src="./assets/social/instagram.png">
+            <img alt="Instagram" class="social-icon" src="./assets/social/instagram.png">
           </a>
           <a *ngIf="!!settings?.linkedin" href="{{settings.linkedin}}">
-            <img class="social-icon" src="./assets/social/linkedin.png">
+            <img alt="LinkedIn" class="social-icon" src="./assets/social/linkedin.png">
           </a>
           <a *ngIf="!!settings?.youtube" href="{{settings.youtube}}">
-            <img class="social-icon" src="./assets/social/youtube.png">
+            <img alt="YouTube" class="social-icon" src="./assets/social/youtube.png">
           </a>
           <div *ngIf="!!settings?.displayEmailInBio" class="bio-email lead">{{settings?.yourEmail}}</div>
         </div>
@@ -50,10 +50,10 @@
 </div>
 
 <div class="margin-y">
-  <a href="/" class="text-decoration-none">
+  <a href="./" class="text-decoration-none">
     <button type="button" class="margins-sides btn btn-primary btn-block">Go to Home</button>
   </a>
-  <a href="/?page=archives" class="text-decoration-none">
+  <a href="./?page=archives" class="text-decoration-none">
     <button type="button" class="margin-top margins-sides btn btn-primary btn-block">Go to the Archives</button>
   </a>
 </div>
